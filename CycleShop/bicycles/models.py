@@ -1,4 +1,8 @@
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
+
+from CycleShop.core.validators import MaxFileSizeValidator
 
 
 class MountainBicycleCategory(models.TextChoices):
@@ -32,6 +36,15 @@ class TyreSize(models.TextChoices):
     SIZE_TWENTY_SIX = "26"
     SIZE_TWENTY_SEVEN = "27.5"
     SIZE_TWENTY_NINE = "29"
+
+
+class BicycleInventoryManager(models.Manager):
+    def create(self, *args, **kwargs):
+        content_object = kwargs.get('content_object')
+        quantity = kwargs.get('quantity')
+        if self.filter(content_object=content_object, quantity=quantity).exists():
+            raise ValueError('Inventory record with the same bike and quantity already exists.')
+        return super().create(*args, **kwargs)
 
 
 class Bicycle(models.Model):
@@ -214,16 +227,44 @@ class BicycleInventory(models.Model):
         default=DEFAULT_QUANTITY,
     )
 
-    bicycle = models.ForeignKey(
-        Bicycle,
-        on_delete=models.CASCADE,
-        related_name='inventory'
-    )
-
     sizes = models.ManyToManyField(
         BicycleSize,
         blank=True
     )
 
-    class Meta:
-        unique_together = ['bicycle', 'quantity']
+    content_type = models.ForeignKey(
+        ContentType,
+        on_delete=models.CASCADE
+    )
+
+    object_id = models.PositiveIntegerField()
+
+    content_object = GenericForeignKey(
+        'content_type',
+        'object_id'
+    )
+
+    objects = BicycleInventoryManager()
+
+
+class BicycleImage(models.Model):
+    MAX_PHOTO_SIZE = 5 * 1024 * 1024
+
+    image = models.ImageField(
+        upload_to='bicycle_images/',
+        null=False,
+        blank=False,
+        validators=(MaxFileSizeValidator(limit_value=MAX_PHOTO_SIZE, ),),
+    )
+
+    content_type = models.ForeignKey(
+        ContentType,
+        on_delete=models.CASCADE
+    )
+
+    object_id = models.PositiveIntegerField()
+
+    content_object = GenericForeignKey(
+        'content_type',
+        'object_id'
+    )
