@@ -1,5 +1,6 @@
-from django.contrib.contenttypes.fields import GenericForeignKey
+
 from django.contrib.contenttypes.models import ContentType
+
 from django.db import models
 
 from CycleShop.core.validators import MaxFileSizeValidator
@@ -25,7 +26,7 @@ class ElectricBicycleCategory(models.TextChoices):
     ELECTRIC_ROAD = "Electric road"
 
 
-class BicycleSizeChoices(models.TextChoices):
+class BicycleSize(models.TextChoices):
     SIZE_S = "S"
     SIZE_M = "M"
     SIZE_L = "L"
@@ -38,15 +39,6 @@ class TyreSize(models.TextChoices):
     SIZE_TWENTY_NINE = "29"
 
 
-class BicycleInventoryManager(models.Manager):
-    def create(self, *args, **kwargs):
-        content_object = kwargs.get('content_object')
-        quantity = kwargs.get('quantity')
-        if self.filter(content_object=content_object, quantity=quantity).exists():
-            raise ValueError('Inventory record with the same bike and quantity already exists.')
-        return super().create(*args, **kwargs)
-
-
 class Bicycle(models.Model):
     MAX_NAME_LENGTH = 100
     MAX_FRAME_LENGTH = 100
@@ -55,6 +47,7 @@ class Bicycle(models.Model):
     MAX_SPEEDS_LENGTH = 100
     MAX_TIRES_LENGTH = 100
     MAX_COLOR_LENGTH = 20
+    MAX_TYRES_SIZE_LENGTH = 10
 
     name = models.CharField(
         max_length=MAX_NAME_LENGTH,
@@ -88,20 +81,11 @@ class Bicycle(models.Model):
         blank=True,
     )
 
-    tires = models.CharField(
-        max_length=MAX_TIRES_LENGTH,
+    tyres_size = models.CharField(
+        max_length=MAX_TYRES_SIZE_LENGTH,
+        choices=TyreSize.choices,
         null=False,
         blank=False,
-    )
-
-    fork_travel = models.PositiveIntegerField(
-        null=True,
-        blank=True,
-    )
-
-    frame_travel = models.PositiveIntegerField(
-        null=True,
-        blank=True,
     )
 
     weight = models.DecimalField(
@@ -124,25 +108,17 @@ class Bicycle(models.Model):
         blank=False,
     )
 
-    class Meta:
-        abstract = True
+    def __str__(self):
+        return self.name
 
 
 class MountainBicycle(Bicycle):
     MAX_CATEGORY_LENGTH = 30
     MAX_SIZE_LENGTH = 10
-    MAX_TYRES_SIZE_LENGTH = 10
 
     category = models.CharField(
         max_length=MAX_CATEGORY_LENGTH,
         choices=MountainBicycleCategory.choices,
-        null=False,
-        blank=False,
-    )
-
-    tyres_size = models.CharField(
-        max_length=MAX_TYRES_SIZE_LENGTH,
-        choices=TyreSize.choices,
         null=False,
         blank=False,
     )
@@ -167,18 +143,10 @@ class ElectricBicycle(Bicycle):
     MAX_DISPLAY_LENGTH = 50
     MAX_CHARGER_LENGTH = 50
     MAX_SIZE_LENGTH = 10
-    MAX_TYRES_SIZE_LENGTH = 10
 
     category = models.CharField(
         max_length=MAX_CATEGORY_LENGTH,
         choices=ElectricBicycleCategory.choices,
-        null=False,
-        blank=False,
-    )
-
-    tyres_size = models.CharField(
-        max_length=MAX_TYRES_SIZE_LENGTH,
-        choices=TyreSize.choices,
         null=False,
         blank=False,
     )
@@ -208,63 +176,27 @@ class ElectricBicycle(Bicycle):
     )
 
 
-class BicycleSize(models.Model):
+class BicycleInventory(models.Model):
     MAX_SIZE_LENGTH = 10
+
+    bicycle = models.ForeignKey(
+        Bicycle,
+        on_delete=models.CASCADE
+    )
 
     size = models.CharField(
         max_length=MAX_SIZE_LENGTH,
-        choices=BicycleSizeChoices.choices,
-    )
-
-    def __str__(self):
-        return self.size
-
-
-class BicycleInventory(models.Model):
-    DEFAULT_QUANTITY = 0
-
-    quantity = models.PositiveIntegerField(
-        default=DEFAULT_QUANTITY,
-    )
-
-    sizes = models.ManyToManyField(
-        BicycleSize,
-        blank=True
-    )
-
-    content_type = models.ForeignKey(
-        ContentType,
-        on_delete=models.CASCADE
-    )
-
-    object_id = models.PositiveIntegerField()
-
-    content_object = GenericForeignKey(
-        'content_type',
-        'object_id'
-    )
-
-    objects = BicycleInventoryManager()
-
-
-class BicycleImage(models.Model):
-    MAX_PHOTO_SIZE = 5 * 1024 * 1024
-
-    image = models.ImageField(
-        upload_to='bicycle_images/',
+        choices=BicycleSize.choices,
         null=False,
         blank=False,
-        validators=(MaxFileSizeValidator(limit_value=MAX_PHOTO_SIZE, ),),
     )
 
-    content_type = models.ForeignKey(
-        ContentType,
-        on_delete=models.CASCADE
-    )
+    quantity = models.PositiveIntegerField()
 
-    object_id = models.PositiveIntegerField()
+    class Meta:
+        unique_together = ('bicycle', 'size')
 
-    content_object = GenericForeignKey(
-        'content_type',
-        'object_id'
-    )
+    def __str__(self):
+        return f"{self.bicycle.name} - Size: {self.size}, Quantity: {self.quantity}"
+
+
