@@ -200,3 +200,18 @@ class BicycleInventory(models.Model):
         return f"{self.bicycle.name} - Size: {self.size}, Quantity: {self.quantity}"
 
 
+class BicycleImage(models.Model):
+    MAX_PHOTO_SIZE = 5 * 1024 * 1024
+
+    image = models.ImageField(
+        upload_to='bicycle_images/',
+        null=True,
+        blank=True,
+        validators=(MaxFileSizeValidator(limit_value=MAX_PHOTO_SIZE,),),
+    )
+
+    bicycle = models.ForeignKey(
+        Bicycle,
+        on_delete=models.CASCADE,
+        related_name='images'
+    )

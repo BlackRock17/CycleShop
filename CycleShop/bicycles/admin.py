@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.contenttypes.models import ContentType
 
 from .models import (
-    MountainBicycle, RoadBicycle, ElectricBicycle, BicycleInventory, Bicycle
+    MountainBicycle, RoadBicycle, ElectricBicycle, BicycleInventory, Bicycle, BicycleImage
 )
 
 
@@ -31,22 +31,27 @@ class BicycleInventoryInline(admin.TabularInline):
     extra = 1
 
 
+class BicycleImageInline(admin.TabularInline):
+    model = BicycleImage
+    extra = 1
+
+
 @admin.register(MountainBicycle)
 class MountainBicycleAdmin(admin.ModelAdmin):
     list_display = ('name', 'category')
-    inlines = [BicycleInventoryInline]
+    inlines = [BicycleInventoryInline, BicycleImageInline]
 
 
 @admin.register(RoadBicycle)
 class RoadBicycleAdmin(admin.ModelAdmin):
     list_display = ('name', 'category')
-    inlines = [BicycleInventoryInline]
+    inlines = [BicycleInventoryInline, BicycleImageInline]
 
 
 @admin.register(ElectricBicycle)
 class ElectricBicycleAdmin(admin.ModelAdmin):
     list_display = ('name', 'category')
-    inlines = [BicycleInventoryInline]
+    inlines = [BicycleInventoryInline, BicycleImageInline]
 
 
 @admin.register(BicycleInventory)
