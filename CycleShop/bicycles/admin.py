@@ -1,8 +1,7 @@
 from django.contrib import admin
-from django.contrib.contenttypes.models import ContentType
 
 from .models import (
-    MountainBicycle, RoadBicycle, ElectricBicycle, BicycleInventory, Bicycle, BicycleImage
+    MountainBicycle, RoadBicycle, ElectricBicycle, BicycleInventory, BicycleImage
 )
 
 
