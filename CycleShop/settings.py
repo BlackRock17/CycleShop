@@ -30,6 +30,8 @@ INSTALLED_APPS = [
 
     "CycleShop.bicycles",
     "CycleShop.equipment",
+    "CycleShop.components",
+    "CycleShop.accessories",
 ]
 
 MIDDLEWARE = [

@@ -42,6 +42,7 @@ class Equipment(models.Model):
     MAX_NAME_LENGTH = 50
     MAX_DIGITS = 8
     MAX_DECIMAL_PLACES = 2
+    MAX_SIZE_LENGTH = 10
 
     name = models.CharField(
         max_length=MAX_NAME_LENGTH,
@@ -60,6 +61,15 @@ class Equipment(models.Model):
         null=False,
         blank=False,
     )
+
+    size = models.CharField(
+        max_length=MAX_SIZE_LENGTH,
+        choices=EquipmentSize.choices,
+        null=False,
+        blank=False,
+    )
+
+    quantity = models.PositiveIntegerField()
 
     def __str__(self):
         return self.name
@@ -103,31 +113,6 @@ class Gloves(Equipment):
         blank=False,
         choices=GlovesCategory.choices,
     )
-
-
-class EquipmentInventory(models.Model):
-    MAX_SIZE_LENGTH = 10
-
-    equipment = models.ForeignKey(
-        Equipment,
-        on_delete=models.CASCADE,
-        related_name="equipment_inventory",
-    )
-
-    size = models.CharField(
-        max_length=MAX_SIZE_LENGTH,
-        choices=EquipmentSize.choices,
-        null=False,
-        blank=False,
-    )
-
-    quantity = models.PositiveIntegerField()
-
-    class Meta:
-        unique_together = ('equipment', 'size')
-
-    def __str__(self):
-        return f"{self.equipment.name} - Size: {self.size}, Quantity: {self.quantity}"
 
 
 class EquipmentImage(models.Model):
