@@ -1,8 +1,9 @@
 from django.contrib import admin
 
 from .models import (
-    MountainBicycle, RoadBicycle, ElectricBicycle, BicycleInventory, BicycleImage
+    MountainBicycle, RoadBicycle, ElectricBicycle, BicycleInventory
 )
+from ..images.admin import ProductImageInline
 
 
 class BicycleTypeFilter(admin.SimpleListFilter):
@@ -30,27 +31,22 @@ class BicycleInventoryInline(admin.TabularInline):
     extra = 1
 
 
-class BicycleImageInline(admin.TabularInline):
-    model = BicycleImage
-    extra = 1
-
-
 @admin.register(MountainBicycle)
 class MountainBicycleAdmin(admin.ModelAdmin):
     list_display = ('name', 'category')
-    inlines = [BicycleInventoryInline, BicycleImageInline]
+    inlines = [BicycleInventoryInline, ProductImageInline]
 
 
 @admin.register(RoadBicycle)
 class RoadBicycleAdmin(admin.ModelAdmin):
     list_display = ('name', 'category')
-    inlines = [BicycleInventoryInline, BicycleImageInline]
+    inlines = [BicycleInventoryInline, ProductImageInline]
 
 
 @admin.register(ElectricBicycle)
 class ElectricBicycleAdmin(admin.ModelAdmin):
     list_display = ('name', 'category')
-    inlines = [BicycleInventoryInline, BicycleImageInline]
+    inlines = [BicycleInventoryInline, ProductImageInline]
 
 
 @admin.register(BicycleInventory)

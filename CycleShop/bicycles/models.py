@@ -1,9 +1,10 @@
-
+from django.contrib.contenttypes.fields import GenericRelation
 from django.contrib.contenttypes.models import ContentType
 
 from django.db import models
 
 from CycleShop.core.validators import MaxFileSizeValidator
+from CycleShop.images.models import ProductImage
 
 
 class MountainBicycleCategory(models.TextChoices):
@@ -37,6 +38,12 @@ class TyreSize(models.TextChoices):
     SIZE_TWENTY_SIX = "26"
     SIZE_TWENTY_SEVEN = "27.5"
     SIZE_TWENTY_NINE = "29"
+
+
+class HandlebarType(models.TextChoices):
+    DROP = "Drop"
+    BULLHORN = "Bullhorn"
+    FLAT = "Flat"
 
 
 class Bicycle(models.Model):
@@ -108,6 +115,11 @@ class Bicycle(models.Model):
         blank=False,
     )
 
+    images = GenericRelation(
+        ProductImage,
+        related_query_name="bicycle"
+    )
+
     def __str__(self):
         return self.name
 
@@ -115,6 +127,28 @@ class Bicycle(models.Model):
 class MountainBicycle(Bicycle):
     MAX_CATEGORY_LENGTH = 30
     MAX_SIZE_LENGTH = 10
+
+    fork_travel = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+    )
+
+    frame_travel = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+    )
+
+    suspension_lockout = models.BooleanField(
+        default=True,
+    )
+
+    dropper_post = models.BooleanField(
+        default=True,
+    )
+
+    tubeless_ready = models.BooleanField(
+        default=False,
+    )
 
     category = models.CharField(
         max_length=MAX_CATEGORY_LENGTH,
@@ -127,6 +161,21 @@ class MountainBicycle(Bicycle):
 class RoadBicycle(Bicycle):
     MAX_CATEGORY_LENGTH = 30
     MAX_SIZE_LENGTH = 10
+    MAX_HANDLEBAR_TYPE_LENGTH = 10
+    MAX_FRAME_GEOMETRY_LENGTH = 10
+
+    handlebar_type = models.CharField(
+        max_length=MAX_HANDLEBAR_TYPE_LENGTH,
+        null=False,
+        blank=False,
+        choices=HandlebarType.choices,
+    )
+
+    frame_geometry = models.CharField(
+        max_length=MAX_FRAME_GEOMETRY_LENGTH,
+        null=True,
+        blank=True,
+    )
 
     category = models.CharField(
         max_length=MAX_CATEGORY_LENGTH,
@@ -143,13 +192,6 @@ class ElectricBicycle(Bicycle):
     MAX_DISPLAY_LENGTH = 50
     MAX_CHARGER_LENGTH = 50
     MAX_SIZE_LENGTH = 10
-
-    category = models.CharField(
-        max_length=MAX_CATEGORY_LENGTH,
-        choices=ElectricBicycleCategory.choices,
-        null=False,
-        blank=False,
-    )
 
     engine = models.CharField(
         max_length=MAX_ENGINE_LENGTH,
@@ -171,6 +213,23 @@ class ElectricBicycle(Bicycle):
 
     charger = models.CharField(
         max_length=MAX_CHARGER_LENGTH,
+        null=False,
+        blank=False,
+    )
+
+    motor_power = models.PositiveIntegerField(
+        null=False,
+        blank=False,
+    )
+
+    max_speed = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+    )
+
+    category = models.CharField(
+        max_length=MAX_CATEGORY_LENGTH,
+        choices=ElectricBicycleCategory.choices,
         null=False,
         blank=False,
     )
@@ -199,19 +258,3 @@ class BicycleInventory(models.Model):
     def __str__(self):
         return f"{self.bicycle.name} - Size: {self.size}, Quantity: {self.quantity}"
 
-
-class BicycleImage(models.Model):
-    MAX_PHOTO_SIZE = 5 * 1024 * 1024
-
-    image = models.ImageField(
-        upload_to='bicycle_images/',
-        null=True,
-        blank=True,
-        validators=(MaxFileSizeValidator(limit_value=MAX_PHOTO_SIZE,),),
-    )
-
-    bicycle = models.ForeignKey(
-        Bicycle,
-        on_delete=models.CASCADE,
-        related_name='images'
-    )
