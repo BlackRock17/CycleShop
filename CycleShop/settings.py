@@ -33,6 +33,8 @@ INSTALLED_APPS = [
     "CycleShop.components",
     "CycleShop.accessories",
     "CycleShop.images",
+    "CycleShop.common",
+    "CycleShop.accounts",
 ]
 
 MIDDLEWARE = [
