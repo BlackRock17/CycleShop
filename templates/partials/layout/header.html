@@ -1,0 +1,110 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+
+
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img src="{% static 'images/Logo_400x400.jpeg' %}" alt="" width="30" height="24">
+                    CYCLE SHOP
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    MAUNTAIN BIKES
+                </a>
+                <ul class="dropdown-menu">
+                    {% for category in mountain_bike_categories %}
+                        <li><a class="dropdown-item" href="#">{{ category.1 }}</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                    {% endfor %}
+                </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    ROAD BIKES
+                </a>
+                <ul class="dropdown-menu">
+                    {% for category in road_bike_categories %}
+                        <li><a class="dropdown-item" href="#">{{ category.1 }}</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                    {% endfor %}
+                </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    ELECTRIC BIKES
+                </a>
+                <ul class="dropdown-menu">
+                    {% for category in electric_bike_categories %}
+                        <li><a class="dropdown-item" href="#">{{ category.1 }}</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                    {% endfor %}
+                </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    EQUIPMENT
+                </a>
+                <ul class="dropdown-menu">
+                    {% for equipment_class, name in equipment_class_names.items %}
+                        <li><a class="dropdown-item" href="#">{{ name }}</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                    {% endfor %}
+                </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    COMPONENTS
+                </a>
+                <ul class="dropdown-menu">
+                    {% for components_type in components_types %}
+                        <li><a class="dropdown-item" href="#">{{ components_type.1 }}</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                    {% endfor %}
+                </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    ACCESSORIES
+                </a>
+                <ul class="dropdown-menu">
+                    {% for accessories_type in accessories_types %}
+                        <li><a class="dropdown-item" href="#">{{ accessories_type.1 }}</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                    {% endfor %}
+                </ul>
+            </li>
+
+        </ul>
+
+            </div>
+
+            {% if not request.user.is_authenticated %}
+
+            <p><a href="#" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" style="padding: 5px">LogIn</a></p>
+
+            <p><a href="#" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" style="padding: 5px">Register</a></p>
+
+            {% else %}
+
+            <p><a href="#" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" style="padding: 5px">Profile</a></p>
+
+            {% endif %}
+
+        </div>
+
+    </nav>
