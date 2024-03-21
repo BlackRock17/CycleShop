@@ -79,30 +79,30 @@ class Goggles(Equipment):
     MAX_LENS_MATERIAL_LENGTH = 20
     MAX_FRAME_MATERIAL_LENGTH = 20
 
-    UV_PROTECTION_LEVEL = models.PositiveIntegerField(
+    UV_protection_level = models.PositiveIntegerField(
         null=True,
         blank=True,
     )
 
-    LENS_MATERIAL = models.CharField(
+    lens_material = models.CharField(
         max_length=MAX_LENS_MATERIAL_LENGTH,
         null=True,
         blank=True,
     )
 
-    FRAME_MATERIAL = models.CharField(
+    frame_material = models.CharField(
         max_length=MAX_LENS_MATERIAL_LENGTH,
         null=True,
         blank=True,
     )
 
-    POLARIZED_LENSES = models.BooleanField(
+    polarized_lenses = models.BooleanField(
         default=False,
         null=True,
         blank=True,
     )
 
-    ANTI_FOG = models.BooleanField(
+    anti_fog = models.BooleanField(
         default=False,
         null=True,
         blank=True,
@@ -121,38 +121,38 @@ class Protection(Equipment):
     MAX_WEIGHT = 5
     MAX_DECIMAL_PLACES = 3
 
-    MATERIAL = models.CharField(
+    material = models.CharField(
         max_length=MAX_MATERIAL_LENGTH,
         null=True,
         blank=True,
     )
 
-    IMPACT_RESISTANCE_RATING = models.PositiveIntegerField(
+    impact_resistance_rating = models.PositiveIntegerField(
         default=1,
         null=False,
         blank=False,
     )
 
-    WEIGHT = models.DecimalField(
+    weight = models.DecimalField(
         max_digits=MAX_WEIGHT,
         decimal_places=MAX_DECIMAL_PLACES,
         null=False,
         blank=False,
     )
 
-    ADJUSTABILITY = models.BooleanField(
+    adjustability = models.BooleanField(
         default=True,
         null=False,
         blank=False,
     )
 
-    VENTILATION = models.BooleanField(
+    ventilation = models.BooleanField(
         default=True,
         null=False,
         blank=False,
     )
 
-    WASHABLE = models.BooleanField(
+    washable = models.BooleanField(
         default=True,
         null=False,
         blank=False,
@@ -173,38 +173,38 @@ class Helmet(Equipment):
     MAX_WEIGHT = 5
     MAX_DECIMAL_PLACES = 3
 
-    CONSTRUCTION_TYPE = models.CharField(
+    construction_type = models.CharField(
         max_length=MAX_CONSTRUCTION_TYPE_LENGTH,
         null=False,
         blank=False,
     )
 
-    RETENTION_SYSTEM = models.CharField(
+    retention_system = models.CharField(
         max_length=MAX_RETENTION_SYSTEM_LENGTH,
         null=True,
         blank=True,
     )
 
-    SAFETY_CERTIFICATION = models.CharField(
+    safety_certification = models.CharField(
         max_length=MAX_SAFETY_CERTIFICATION_LENGTH,
         null=True,
         blank=True,
     )
 
-    WEIGHT = models.DecimalField(
+    weight = models.DecimalField(
         max_digits=MAX_WEIGHT,
         decimal_places=MAX_DECIMAL_PLACES,
         null=False,
         blank=False,
     )
 
-    ADJUSTABLE_VISOR = models.BooleanField(
+    adjustable_visor = models.BooleanField(
         default=False,
         blank=False,
         null=False,
     )
 
-    MIPS_TECHNOLOGY = models.BooleanField(
+    MIPS_technology = models.BooleanField(
         default=False,
         null=False,
         blank=False,
@@ -225,43 +225,43 @@ class Gloves(Equipment):
     MAX_GRIP_ENHANCING_FEATURES_LENGTH = 20
     MAX_CLOSURE_TYPE_LENGTH = 10
 
-    MATERIAL_PALM = models.CharField(
+    material_palm = models.CharField(
         max_length=MAX_MATERIAL_PALM_LENGTH,
         null=True,
         blank=True,
     )
 
-    MATERIAL_BACK = models.CharField(
+    material_back = models.CharField(
         max_length=MAX_MATERIAL_PALM_LENGTH,
         null=True,
         blank=True,
     )
 
-    PADDING_TYPE = models.CharField(
+    padding_type = models.CharField(
         max_length=MAX_PADDING_TYPE_LENGTH,
         null=True,
         blank=True,
     )
 
-    GRIP_ENHANCING_FEATURES = models.CharField(
+    grip_enhancing_features = models.CharField(
         max_length=MAX_GRIP_ENHANCING_FEATURES_LENGTH,
         null=True,
         blank=True,
     )
 
-    CLOSURE_TYPE = models.CharField(
+    closure_type = models.CharField(
         max_length=MAX_CLOSURE_TYPE_LENGTH,
         null=True,
         blank=True,
     )
 
-    WATERPROOF = models.BooleanField(
+    waterproof = models.BooleanField(
         default=False,
         null=True,
         blank=True,
     )
 
-    TOUCHSCREEN_COMPATIBLE = models.BooleanField(
+    touchscreen_compatible = models.BooleanField(
         default=True,
         null=False,
         blank=False,

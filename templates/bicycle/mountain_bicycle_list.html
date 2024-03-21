@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block main_content %}
+  <h1>Mountain Bicycles</h1>
+
+   <div class="card mb-4">
+    <div class="card-body">
+
+       <div class="mb-3">
+        <label class="form-label">Category</label>
+        <div class="d-flex flex-wrap">
+            {% for choice in mountain_bike_categories %}
+                <a href="?category={{ choice.0 }}" class="me-3 mb-2">{{ choice.1 }}</a>
+            {% endfor %}
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Tyre Size</label>
+        <div class="d-flex flex-wrap">
+          {% for tyre_size in tyre_sizes %}
+            <a href="?tyres_size={{ tyre_size.0 }}" class="me-3 mb-2">{{ tyre_size.1 }}</a>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Size</label>
+        <div class="d-flex flex-wrap">
+          {% for size in bicycle_sizes %}
+            <a href="?size={{ size.0 }}" class="me-3 mb-2">{{ size.1 }}</a>
+          {% endfor %}
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+    {% for bicycle in mountain_bicycles %}
+        <div class="card" style="width: 18rem;">
+            {% if bicycle.images.all %}
+                <img src="{{ bicycle.images.all.0.image.url }}" class="card-img-top" alt="{{ bicycle.name }}">
+            {% else %}
+                <img src="{% static 'images/default_bicycle.jpg' %}" class="card-img-top" alt="Default Image">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ bicycle.name }}</h5>
+                <p class="card-text">{{ bicycle.description }}</p>
+                <a href="#" class="btn btn-primary">More Info</a>
+            </div>
+        </div>
+    {% endfor %}
+
+  {% if is_paginated %}
+    <!-- Pagination controls -->
+  {% endif %}
+{% endblock %}
+
+

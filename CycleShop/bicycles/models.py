@@ -52,6 +52,7 @@ class Bicycle(models.Model):
     MAX_TIRES_LENGTH = 100
     MAX_COLOR_LENGTH = 20
     MAX_TYRES_SIZE_LENGTH = 10
+    MAX_SIZE_LENGTH = 10
 
     name = models.CharField(
         max_length=MAX_NAME_LENGTH,
@@ -111,6 +112,15 @@ class Bicycle(models.Model):
         null=False,
         blank=False,
     )
+
+    size = models.CharField(
+        max_length=MAX_SIZE_LENGTH,
+        choices=BicycleSize.choices,
+        null=False,
+        blank=False,
+    )
+
+    quantity = models.PositiveIntegerField()
 
     images = GenericRelation(
         ProductImage,
@@ -231,27 +241,4 @@ class ElectricBicycle(Bicycle):
         blank=False,
     )
 
-
-class BicycleInventory(models.Model):
-    MAX_SIZE_LENGTH = 10
-
-    bicycle = models.ForeignKey(
-        Bicycle,
-        on_delete=models.CASCADE
-    )
-
-    size = models.CharField(
-        max_length=MAX_SIZE_LENGTH,
-        choices=BicycleSize.choices,
-        null=False,
-        blank=False,
-    )
-
-    quantity = models.PositiveIntegerField()
-
-    class Meta:
-        unique_together = ('bicycle', 'size')
-
-    def __str__(self):
-        return f"{self.bicycle.name} - Size: {self.size}, Quantity: {self.quantity}"
 

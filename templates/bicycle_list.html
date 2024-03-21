@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block main_content %}
+  <h1>{{ view.kwargs.category|title }} Bicycles</h1>
+
+  <form method="get">
+    {% for field in form %}
+      <div class="mb-3">
+        <label class="form-label">{{ field.label }}</label>
+        <div class="list-group">
+          {% for choice in field %}
+            <div class="list-group-item">
+              <input type="radio" name="{{ field.name }}" value="{{ choice.choice_value }}" id="{{ choice.id_for_label }}" {% if choice.choice_value in field.value %}checked{% endif %}>
+              <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+    <button type="submit">Filter</button>
+  </form>
+
+  {% for bicycle in bicycles %}
+    <div class="card" style="width: 18rem;">
+            {% if bicycle.images.all %}
+                <img src="{{ bicycle.images.all.0.image.url }}" class="card-img-top" alt="{{ bicycle.name }}">
+            {% else %}
+                <img src="{% static 'images/default_bicycle.jpg' %}" class="card-img-top" alt="Default Image">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ bicycle.name }}</h5>
+                <p class="card-text">{{ bicycle.description }}</p>
+                <p class="card-text">{{ bicycle.price }} USD</p>
+                <a href="{% url 'bicycle_detail' bicycle.pk %}" class="btn btn-primary">More Info</a>
+            </div>
+        </div>
+  {% endfor %}
+
+  {% if is_paginated %}
+    <!-- Pagination controls -->
+  {% endif %}
+{% endblock %}
