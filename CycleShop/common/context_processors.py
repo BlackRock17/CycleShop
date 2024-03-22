@@ -14,7 +14,7 @@ def categories(request):
         },
         "equipment_class_names": get_equipment_class_names(),
         "components_types": ComponentsType.choices,
-        "accessories_types": Category.choices,
+        "accessories_categories": Category.choices,
     }
 
 

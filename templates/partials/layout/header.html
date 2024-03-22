@@ -60,8 +60,8 @@
                     ACCESSORIES
                 </a>
                 <ul class="dropdown-menu">
-                    {% for accessories_type in accessories_types %}
-                        <li><a class="dropdown-item" href="#">{{ accessories_type.1 }}</a></li>
+                    {% for category in accessories_categories %}
+                        <li><a class="dropdown-item" href="{% url 'accessories_list_by_category' category=category.0 %}">{{ category.1 }}</a></li>
                         <li><hr class="dropdown-divider"></li>
                     {% endfor %}
                 </ul>

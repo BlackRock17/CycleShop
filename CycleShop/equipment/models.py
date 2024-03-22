@@ -274,7 +274,3 @@ class Gloves(Equipment):
         choices=GlovesCategory.choices,
     )
 
-    images = GenericRelation(
-        ProductImage,
-        related_query_name="equipment",
-    )

@@ -1,4 +1,3 @@
-from django.contrib.contenttypes.fields import GenericRelation
 from django.core.validators import MinLengthValidator
 from django.db import models
 
@@ -50,11 +49,6 @@ class Accessories(models.Model):
     category = models.CharField(
         max_length=30,
         choices=Category.choices
-    )
-
-    images = GenericRelation(
-        ProductImage,
-        related_query_name='accessory'
     )
 
 

@@ -50,8 +50,3 @@ class Components(models.Model):
     )
 
     quantity = models.PositiveIntegerField()
-
-    images = GenericRelation(
-        ProductImage,
-        related_query_name="components",
-    )

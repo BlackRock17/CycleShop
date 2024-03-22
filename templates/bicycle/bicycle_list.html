@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block main_content %}
+
+    <h1 class="text-center mb-4">{{ view.kwargs.category|title }} Bicycles</h1>
+    <div class="row"> <div class="col-md-2">
+        <form method="get" class="mb-4">
+            {% for field in form %}
+                <div class="mb-3">
+                    <label class="form-label">{{ field.label }}</label>
+                    <div class="list-group">
+                        {% for choice in field %}
+                            <div class="list-group-item">
+                                <input type="radio" name="{{ field.name }}" value="{{ choice.choice_value }}" id="{{ choice.id_for_label }}" {% if choice.choice_value in field.value %}checked{% endif %}>
+                                <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary btn-sm">Filter</button>
+        </form>
+    </div>
+        <div class="col-md-10">
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                {% for bicycle in bicycles %}
+                    <div class="col mb-4">
+                        <div class="card h-100" style="width: 450px;">
+                            <div class="card-img-container" style="height: 300px; display: flex; justify-content: center; align-items: center; overflow: hidden;">
+                                {% if bicycle.bicycle_images.exists %}
+                                    {% with bicycle.bicycle_images.first as first_image %}
+                                        <img src="{{ first_image.image.url }}" alt="{{ bicycle.name }}" class="card-img-top" style="max-width: 100%; object-fit: contain;">
+                                    {% endwith %}
+                            {% else %}
+                                <img src="{% static 'images/default_bicycle.jpg' %}" alt="Default Image" class="card-img-top" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+                            {% endif %}
+                            </div>
+
+                            <div class="card-body">
+                                <h5 class="card-title">{{ bicycle.name }}</h5>
+                                <p class="card-text">{{ bicycle.description }}</p>
+                                <p class="card-text">{{ bicycle.price }} USD</p>
+                                <a href="{% url 'bicycle_detail' bicycle.pk %}" class="btn btn-primary">More Info</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+  {% if is_paginated %}
+    <!-- Pagination controls -->
+  {% endif %}
+{% endblock %}

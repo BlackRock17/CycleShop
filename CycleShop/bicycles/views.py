@@ -4,7 +4,7 @@ from CycleShop.bicycles.models import MountainBicycle, RoadBicycle, ElectricBicy
 
 
 class BicycleListView(views.ListView):
-    template_name = 'bicycle_list.html'
+    template_name = 'bicycle/bicycle_list.html'
     context_object_name = 'bicycles'
     paginate_by = 20
 
@@ -40,7 +40,7 @@ class BicycleListView(views.ListView):
 
 class BicycleDetailView(views.DetailView):
     model = Bicycle
-    template_name = 'bicycle_detail.html'
+    template_name = 'bicycle/bicycle_detail.html'
     context_object_name = 'bicycle'
     queryset = Bicycle.objects.select_related('mountainbicycle', 'roadbicycle', 'electricbicycle')
 
