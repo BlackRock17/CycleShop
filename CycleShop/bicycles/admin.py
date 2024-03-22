@@ -26,21 +26,22 @@ class BicycleTypeFilter(admin.SimpleListFilter):
             return queryset.filter(bicycle__electricbicycle__isnull=False)
 
 
-@admin.register(MountainBicycle)
-class MountainBicycleAdmin(admin.ModelAdmin):
-    list_display = ('name', 'category')
+class BaseBicycleAdmin(admin.ModelAdmin):
     inlines = [ProductImageInline]
+
+
+@admin.register(MountainBicycle)
+class MountainBicycleAdmin(BaseBicycleAdmin):
+    list_display = ('name', 'category')
 
 
 @admin.register(RoadBicycle)
-class RoadBicycleAdmin(admin.ModelAdmin):
+class RoadBicycleAdmin(BaseBicycleAdmin):
     list_display = ('name', 'category')
-    inlines = [ProductImageInline]
 
 
 @admin.register(ElectricBicycle)
-class ElectricBicycleAdmin(admin.ModelAdmin):
+class ElectricBicycleAdmin(BaseBicycleAdmin):
     list_display = ('name', 'category')
-    inlines = [ProductImageInline]
 
 

@@ -4,38 +4,40 @@
 {% block main_content %}
   <h1>{{ view.kwargs.category|title }} Bicycles</h1>
 
-  <form method="get">
-    {% for field in form %}
-      <div class="mb-3">
-        <label class="form-label">{{ field.label }}</label>
-        <div class="list-group">
-          {% for choice in field %}
-            <div class="list-group-item">
-              <input type="radio" name="{{ field.name }}" value="{{ choice.choice_value }}" id="{{ choice.id_for_label }}" {% if choice.choice_value in field.value %}checked{% endif %}>
-              <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
-            </div>
-          {% endfor %}
-        </div>
-      </div>
-    {% endfor %}
-    <button type="submit">Filter</button>
-  </form>
+{#  <form method="get">#}
+{#    {% for field in form %}#}
+{#      <div class="mb-3">#}
+{#        <label class="form-label">{{ field.label }}</label>#}
+{#        <div class="list-group">#}
+{#          {% for choice in field %}#}
+{#            <div class="list-group-item">#}
+{#              <input type="radio" name="{{ field.name }}" value="{{ choice.choice_value }}" id="{{ choice.id_for_label }}" {% if choice.choice_value in field.value %}checked{% endif %}>#}
+{#              <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>#}
+{#            </div>#}
+{#          {% endfor %}#}
+{#        </div>#}
+{#      </div>#}
+{#    {% endfor %}#}
+{#    <button type="submit">Filter</button>#}
+{#  </form>#}
+{##}
+{#  {% for bicycle in bicycles %}#}
+{#    <div class="card" style="width: 18rem;">#}
+{#            {% if bicycle.images.all %}#}
+{#                <img src="{{ bicycle.images.all.0.image.url }}" class="card-img-top" alt="{{ bicycle.name }}">#}
+{#            {% else %}#}
+{#                <img src="{% static 'images/default_bicycle.jpg' %}" class="card-img-top" alt="Default Image">#}
+{#            {% endif %}#}
+{#            <div class="card-body">#}
+{#                <h5 class="card-title">{{ bicycle.name }}</h5>#}
+{#                <p class="card-text">{{ bicycle.description }}</p>#}
+{#                <p class="card-text">{{ bicycle.price }} USD</p>#}
+{#                <a href="{% url 'bicycle_detail' bicycle.pk %}" class="btn btn-primary">More Info</a>#}
+{#            </div>#}
+{#        </div>#}
+{#  {% endfor %}#}
 
-  {% for bicycle in bicycles %}
-    <div class="card" style="width: 18rem;">
-            {% if bicycle.images.all %}
-                <img src="{{ bicycle.images.all.0.image.url }}" class="card-img-top" alt="{{ bicycle.name }}">
-            {% else %}
-                <img src="{% static 'images/default_bicycle.jpg' %}" class="card-img-top" alt="Default Image">
-            {% endif %}
-            <div class="card-body">
-                <h5 class="card-title">{{ bicycle.name }}</h5>
-                <p class="card-text">{{ bicycle.description }}</p>
-                <p class="card-text">{{ bicycle.price }} USD</p>
-                <a href="{% url 'bicycle_detail' bicycle.pk %}" class="btn btn-primary">More Info</a>
-            </div>
-        </div>
-  {% endfor %}
+    <h1 class="text-center mb-4">{{ view.kwargs.category|title }} Bicycles</h1> <div class="row"> <div class="col-md-2"> <form method="get" class="mb-4"> {% for field in form %} <div class="mb-3"> <label class="form-label">{{ field.label }}</label> <div class="list-group"> {% for choice in field %} <div class="list-group-item"> <input type="radio" name="{{ field.name }}" value="{{ choice.choice_value }}" id="{{ choice.id_for_label }}" {% if choice.choice_value in field.value %}checked{% endif %}> <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label> </div> {% endfor %} </div> </div> {% endfor %} <button type="submit" class="btn btn-primary btn-sm">Filter</button> </form> </div> <div class="col-md-10"> <div class="row row-cols-1 row-cols-md-3 g-4"> {% for bicycle in bicycles %} <div class="col mb-4"> <div class="card h-100" style="width: 450px;"> <div class="card-img-top" style="height: 300px; overflow: hidden; display: flex; justify-content: center; align-items: center;"> {% if bicycle.images.all %} <img src="{{ bicycle.images.all.0.image.url }}" alt="{{ bicycle.name }}" style="max-width: 100%; max-height: 100%;"> {% else %} <img src="{% static 'images/default_bicycle.jpg' %}" alt="Default Image" style="max-width: 100%; max-height: 100%;"> {% endif %} </div> <div class="card-body"> <h5 class="card-title">{{ bicycle.name }}</h5> <p class="card-text">{{ bicycle.description }}</p> <p class="card-text">{{ bicycle.price }} USD</p> <a href="{% url 'bicycle_detail' bicycle.pk %}" class="btn btn-primary">More Info</a> </div> </div> </div> {% endfor %} </div> </div> </div>
 
   {% if is_paginated %}
     <!-- Pagination controls -->

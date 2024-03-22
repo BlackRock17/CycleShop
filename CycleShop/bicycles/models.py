@@ -1,5 +1,3 @@
-from django.contrib.contenttypes.fields import GenericRelation
-from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from CycleShop.images.models import ProductImage
 
@@ -121,11 +119,6 @@ class Bicycle(models.Model):
     )
 
     quantity = models.PositiveIntegerField()
-
-    images = GenericRelation(
-        ProductImage,
-        related_query_name="bicycle"
-    )
 
     def __str__(self):
         return self.name

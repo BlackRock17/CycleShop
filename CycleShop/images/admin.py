@@ -1,11 +1,13 @@
 from django.contrib import admin
-from django.contrib.contenttypes.admin import GenericTabularInline
-
 from .models import ProductImage
 
 
-class ProductImageInline(GenericTabularInline):
+class ProductImageInline(admin.StackedInline):
     model = ProductImage
     extra = 1
+    fields = ['image']
+
+
+admin.site.register(ProductImage)
 
 

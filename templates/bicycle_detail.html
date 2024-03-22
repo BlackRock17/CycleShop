@@ -13,6 +13,10 @@
               <div class="carousel-item {% if forloop.first %}active{% endif %}">
                 <img src="{{ image.image.url }}" class="d-block w-100" alt="{{ bicycle.name }}">
               </div>
+                {% empty %}
+              <div class="carousel-item active">
+                <img src="{% static 'images/default_bicycle.jpg' %}" class="d-block w-100" alt="Default Image">
+              </div>
             {% endfor %}
           </div>
           <button class="carousel-control-prev" type="button" data-bs-target="#bicycle-images" data-bs-slide="prev">
@@ -24,12 +28,40 @@
             <span class="visually-hidden">Next</span>
           </button>
         </div>
+      <div class="row mt-3">
+          {% for image in bicycle.images.all %}
+            <div class="col-md-3">
+              <img src="{{ image.image.url }}" class="img-fluid" alt="{{ bicycle.name }}" data-bs-target="#bicycle-images" data-bs-slide-to="{{ forloop.counter0 }}">
+            </div>
+          {% endfor %}
+        </div>
       </div>
       <div class="col-md-4">
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h4 class="card-title">{{ bicycle.name }}</h4>
+            <h5 class="card-subtitle mb-2 text-muted">
+                {% if bicycle.mountainbicycle %}
+                    {{ bicycle.mountainbicycle.get_category_display }}
+                {% elif bicycle.roadbicycle %}
+                    {{ bicycle.roadbicycle.get_category_display }}
+                {% elif bicycle.electricbicycle %}
+                    {{ bicycle.electricbicycle.get_category_display }}
+                {% else %}
+                     N/A
+                {% endif %}
+            </h5>
+            <p class="card-text lead">Price: {{ bicycle.price }} USD</p>
+            <a href="#" class="btn btn-primary">Add to Cart</a>
+          </div>
+        </div>
+
         <h3>Specifications</h3>
         <table class="table table-striped">
           {% for field in bicycle_fields %}
-            <tr class="{% cycle 'bg-light' 'bg-secondary-light' %}">
+              {% if field.name != 'name' and field.name != 'price' and field.name != 'category' %}
+                    <tr class="{% cycle 'bg-light' 'bg-secondary-light' %}">
               <th>{{ field.verbose_name|capfirst }}</th>
               <td>
                 {% if field.value %}
@@ -39,9 +71,12 @@
                 {% endif %}
               </td>
             </tr>
+              {% endif %}
           {% endfor %}
         </table>
       </div>
     </div>
   </div>
 {% endblock %}
+
+
