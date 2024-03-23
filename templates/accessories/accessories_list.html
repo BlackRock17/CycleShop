@@ -24,6 +24,10 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ accessory.name }}</h5>
                         <p class="card-text">{{ accessory.description }}</p>
+                        <p class="card-text">{{ accessory.price }} USD</p>
+                        <a href="{% url 'accessory_detail' pk=accessory.pk %}" class="btn btn-primary">More Info</a>
+                        <p>Type of accessory.pk: {{ accessory.pk_type }}</p>
+
                     </div>
                 </div>
             </div>
@@ -32,25 +36,3 @@
     </div>
 </div>
 {% endblock %}
-
-{#{% block main_content %}#}
-{#<div class="row row-cols-1 row-cols-md-2 g-4">#}
-{#    {% for accessory in accessories %}#}
-{#    <div class="col">#}
-{#        <div class="card">#}
-{#            {% with accessory.accessory_images.all|first as accessory_image %}#}
-{#                {% if accessory_image %}#}
-{#                    <img src="{{ accessory_image.image.url }}" class="card-img-top" alt="{{ accessory.name }}">#}
-{#                {% else %}#}
-{#                    <img src="{% static 'images/default.jpg' %}" class="card-img-top" alt="Default Accessory Image">#}
-{#                {% endif %}#}
-{#            {% endwith %}#}
-{#            <div class="card-body">#}
-{#                <h5 class="card-title">{{ accessory.name }}</h5>#}
-{#                <p class="card-text">{{ accessory.description }}</p>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-{#    {% endfor %}#}
-{#</div>#}
-{#{% endblock %}#}
