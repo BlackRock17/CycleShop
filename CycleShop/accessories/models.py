@@ -24,6 +24,10 @@ class Accessories(models.Model):
     MAX_NAME_LENGTH = 30
     MAX_TYPE_LENGTH = 30
     MIN_DESCRIPTION_LENGTH = 10
+    MAX_ATTACHMENT_TYPE_LENGTH = 20
+    MAX_WEATHER_RESISTANCE_LENGTH = 10
+    MAX_CAPACITY_LENGTH = 10
+    MAX_ADJUSTABILITY_LENGTH = 10
 
     name = models.CharField(
         max_length=MAX_NAME_LENGTH,
@@ -51,4 +55,26 @@ class Accessories(models.Model):
         choices=Category.choices
     )
 
+    attachment_type = models.CharField(
+        max_length=MAX_ATTACHMENT_TYPE_LENGTH,
+        null=True,
+        blank=True,
+    )
 
+    weather_resistance = models.CharField(
+        max_length=MAX_WEATHER_RESISTANCE_LENGTH,
+        null=True,
+        blank=True,
+    )
+
+    capacity = models.CharField(
+        max_length=MAX_CAPACITY_LENGTH,
+        null=True,
+        blank=True,
+    )
+
+    adjustability = models.CharField(
+        max_length=MAX_ADJUSTABILITY_LENGTH,
+        null=True,
+        blank=True,
+    )

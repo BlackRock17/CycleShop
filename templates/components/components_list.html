@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block main_content %}
+<div class="row">
+    <div class="col-md-3">
+        <form method="get" action="{% url 'components_list' %}">
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </form>
+    </div>
+    <div class="col-md-9">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for component in components %}
+            <div class="col">
+                <div class="card h-100">
+                    {% if component.first_image %}
+                        <img src="{{ component.first_image.image.url }}" class="card-img-top" alt="{{ component.name }}">
+                    {% else %}
+                        <img src="{% static 'images/default.jpg' %}" class="card-img-top" alt="Default Component Image">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ component.name }}</h5>
+                        <p class="card-text">{{ component.description }}</p>
+                        <p class="card-text">{{ component.price }} USD</p>
+                        <a href="{% url 'component_detail' pk=component.pk %}" class="btn btn-primary">More Info</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

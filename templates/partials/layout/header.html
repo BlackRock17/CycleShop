@@ -48,10 +48,11 @@
                     COMPONENTS
                 </a>
                 <ul class="dropdown-menu">
-                    {% for components_type in components_types %}
-                        <li><a class="dropdown-item" href="#">{{ components_type.1 }}</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                    {% endfor %}
+                    <li><a class="dropdown-item" href="{% url 'components_list' %}">All Components</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                        {% for components_type in components_types %}
+                            <li><a class="dropdown-item" href="{% url 'components_list' %}?category={{ components_type.0 }}">{{ components_type.1 }}</a></li>
+                        {% endfor %}
                 </ul>
             </li>
 

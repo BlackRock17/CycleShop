@@ -29,6 +29,8 @@ class Components(models.Model):
     MAX_NAME_LENGTH = 30
     MAX_TYPE_LENGTH = 30
     MIN_DESCRIPTION_LENGTH = 10
+    MAX_INSTALATION_TYPE_LENGTH = 15
+    MAX_SPEED_COMPATIBILITY_LENGTH = 15
 
     name = models.CharField(
         max_length=MAX_NAME_LENGTH,
@@ -50,3 +52,23 @@ class Components(models.Model):
     )
 
     quantity = models.PositiveIntegerField()
+
+    price = models.DecimalField(
+        max_digits=8,
+        decimal_places=2,
+        null=True,
+        blank=True,
+        default=0.00
+    )
+
+    installation_type = models.CharField(
+        max_length=MAX_INSTALATION_TYPE_LENGTH,
+        null=True,
+        blank=True,
+    )
+
+    speed_compatibility = models.CharField(
+        max_length=MAX_SPEED_COMPATIBILITY_LENGTH,
+        null=True,
+        blank=True,
+    )
