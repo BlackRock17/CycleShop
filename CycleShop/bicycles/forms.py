@@ -1,27 +1,4 @@
 from django import forms
-from .models import MountainBicycleCategory, TyreSize, BicycleSize
-
-
-# class MountainBicycleFilterForm(forms.Form):
-#     category = forms.MultipleChoiceField(
-#         choices=MountainBicycleCategory.choices,
-#         required=False,
-#         widget=forms.CheckboxSelectMultiple,
-#     )
-#     tyres_size = forms.MultipleChoiceField(
-#         choices=TyreSize.choices,
-#         required=False,
-#         widget=forms.CheckboxSelectMultiple,
-#     )
-#     size = forms.MultipleChoiceField(
-#         choices=BicycleSize.choices,
-#         required=False,
-#         widget=forms.CheckboxSelectMultiple,
-#     )
-
-
-# forms.py
-from django import forms
 from .models import MountainBicycleCategory, RoadBicycleCategory, ElectricBicycleCategory, TyreSize, BicycleSize
 
 

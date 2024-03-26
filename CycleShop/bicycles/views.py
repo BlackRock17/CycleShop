@@ -48,7 +48,7 @@ class BicycleDetailView(views.DetailView):
         context = super().get_context_data(**kwargs)
         bicycle = self.get_object()
 
-        context['images'] = bicycle.images.all()
+        context['images'] = bicycle.bicycle_images.all()
 
         base_fields = ['name', 'description', 'frame', 'fork', 'brakes', 'gears', 'tyres_size', 'weight', 'color',
                        'price', 'size']

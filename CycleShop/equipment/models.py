@@ -1,4 +1,3 @@
-from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from CycleShop.images.models import ProductImage
 
