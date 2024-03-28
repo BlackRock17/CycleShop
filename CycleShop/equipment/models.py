@@ -73,6 +73,19 @@ class Equipment(models.Model):
     def __str__(self):
         return self.name
 
+    @staticmethod
+    def get_category_choices(equipment_type):
+        if equipment_type == 'Goggles':
+            return GogglesCategory.choices
+        elif equipment_type == 'Protection':
+            return ProtectionCategory.choices
+        elif equipment_type == 'Helmet':
+            return HelmetCategory.choices
+        elif equipment_type == 'Gloves':
+            return GlovesCategory.choices
+        else:
+            return []
+
 
 class Goggles(Equipment):
     MAX_LENS_MATERIAL_LENGTH = 20

@@ -1,26 +1,23 @@
 from django import forms
-from .models import GogglesCategory, ProtectionCategory, HelmetCategory, GlovesCategory
+
+from CycleShop.equipment.models import EquipmentSize, Equipment
 
 
 class EquipmentFilterForm(forms.Form):
-    search_query = forms.CharField(
-        label='Search',
-        required=False,
-        widget=forms.TextInput(attrs={'placeholder': 'Search equipments...'}),
-    )
+    EQUIPMENT_CHOICES = [
+        ('Goggles', 'Goggles'),
+        ('Protection', 'Protection'),
+        ('Helmet', 'Helmet'),
+        ('Gloves', 'Gloves'),
+    ]
 
-    def __init__(self, *args, **kwargs):
+    category = forms.ChoiceField(choices=EQUIPMENT_CHOICES, required=False, label='Category', widget=forms.RadioSelect)
+
+
+class TypeEquipmentFilterForm(forms.Form):
+    category = forms.ChoiceField(choices=[], required=False, label='Category', widget=forms.RadioSelect)
+    size = forms.ChoiceField(choices=EquipmentSize.choices, required=False, label='Size', widget=forms.RadioSelect)
+
+    def __init__(self, equipment_type, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
-        self.fields['goggles_categories'] = forms.BooleanField(required=False, widget=forms.RadioSelect(
-            choices=[(category.name, category.value) for category in GogglesCategory]
-        ))
-        self.fields['protection_categories'] = forms.BooleanField(required=False, widget=forms.RadioSelect(
-            choices=[(category.name, category.value) for category in ProtectionCategory]
-        ))
-        self.fields['helmet_categories'] = forms.BooleanField(required=False, widget=forms.RadioSelect(
-            choices=[(category.name, category.value) for category in HelmetCategory]
-        ))
-        self.fields['gloves_categories'] = forms.BooleanField(required=False, widget=forms.RadioSelect(
-            choices=[(category.name, category.value) for category in GlovesCategory]
-        ))
+        self.fields['category'].choices = Equipment.get_category_choices(equipment_type)

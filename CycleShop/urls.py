@@ -8,7 +8,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("CycleShop.common.urls")),
     path("bicycles/", include("CycleShop.bicycles.urls")),
-    path("equipment/", include("CycleShop.equipment.urls")),
+    path("equipments/", include("CycleShop.equipment.urls")),
     path("components/", include("CycleShop.components.urls")),
     path("accessories/", include("CycleShop.accessories.urls")),
     path("accounts/", include("CycleShop.accounts.urls")),
