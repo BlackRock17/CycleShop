@@ -37,7 +37,7 @@
                 </a>
                 <ul class="dropdown-menu">
                     {% for equipment_class, name in equipment_class_names.items %}
-                        <li><a class="dropdown-item" href="#">{{ name }}</a></li>
+                        <li><a class="dropdown-item" href="{% url 'equipment_category_list' category=equipment_class %}">{{ name }}</a></li>
                         <li><hr class="dropdown-divider"></li>
                     {% endfor %}
                 </ul>

@@ -1,10 +1,11 @@
 from django.apps import apps
+from django.db.models import Field
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.views import generic as views
 
 from CycleShop.equipment.forms import EquipmentFilterForm, TypeEquipmentFilterForm
-from CycleShop.equipment.models import Equipment
+from CycleShop.equipment.models import Equipment, Goggles, Protection, Helmet, Gloves
 
 
 class EquipmentsListView(views.ListView):
@@ -69,4 +70,42 @@ class EquipmentCategoryListView(views.ListView):
         category = self.kwargs['category']
         context['category'] = category
         context['form'] = TypeEquipmentFilterForm(category, self.request.GET)
+        return context
+
+
+class EquipmentDetailView(views.DetailView):
+    model = Equipment
+    template_name = 'equipments/equipment_detail.html'
+    context_object_name = 'equipment'
+    queryset = Equipment.objects.select_related('goggles', 'protection', 'helmet', 'gloves')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        equipment = self.get_object()
+        equipment_fields = []
+
+        # for field in equipment._meta.fields:
+        #     if field.name not in ("id", "quantity"):
+        #         verbose_name = field.verbose_name
+        #         value = getattr(equipment, field.name)
+        #         equipment_fields.append({'verbose_name': verbose_name, 'value': value})
+
+        specific_models = {
+            'goggles': Goggles,
+            'protection': Protection,
+            'helmet': Helmet,
+            'gloves': Gloves
+        }
+
+        for model_name, model_class in specific_models.items():
+            if hasattr(equipment, model_name):
+                specific_model = getattr(equipment, model_name)
+                for field in model_class._meta.get_fields():
+                    if field.name not in ["id", "equipment_ptr", "quantity"] and isinstance(field, Field):
+                        verbose_name = field.verbose_name
+                        value = getattr(specific_model, field.name)
+                        equipment_fields.append({'verbose_name': verbose_name, 'value': value})
+                break
+
+        context['equipment_fields'] = equipment_fields
         return context

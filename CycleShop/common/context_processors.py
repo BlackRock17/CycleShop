@@ -21,4 +21,4 @@ def categories(request):
 def get_equipment_class_names():
     models_module = apps.get_app_config("equipment").get_models()
     equipment_classes = [cls for cls in models_module if isinstance(cls, type) and issubclass(cls, Equipment) and cls != Equipment]
-    return {cls: cls.__name__ for cls in equipment_classes}
+    return {cls.__name__: cls.__name__ for cls in equipment_classes}
