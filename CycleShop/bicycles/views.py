@@ -1,10 +1,44 @@
+from django.db.models import Field
+from django.shortcuts import redirect
+from django.urls import reverse
 from django.views import generic as views
-from CycleShop.bicycles.forms import BicycleFilterForm
+from CycleShop.bicycles.forms import BicycleFilterForm, BicycleCategoryFilterForm
 from CycleShop.bicycles.models import MountainBicycle, RoadBicycle, ElectricBicycle, Bicycle
 
 
 class BicycleListView(views.ListView):
-    template_name = 'bicycle/bicycle_list.html'
+    template_name = "bicycle/bicycle_list.html"
+    paginate_by = 20
+    context_object_name = "bicycle_list"
+
+    def get_queryset(self):
+        queryset = Bicycle.objects.all()
+        form = BicycleFilterForm(self.request.GET)
+        if form.is_valid():
+            category = form.cleaned_data['category']
+            if category:
+                self.request.GET = self.request.GET.copy()
+                self.request.GET['category'] = category
+                return queryset
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = BicycleFilterForm(self.request.GET)
+        return context
+
+    def get(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        form = BicycleFilterForm(request.GET)
+        if form.is_valid():
+            category = form.cleaned_data['category']
+            if category:
+                return redirect(reverse('bicycle_category_list', kwargs={'category': category}))
+        return super().get(request, *args, **kwargs)
+
+
+class BicycleCategoryListView(views.ListView):
+    template_name = 'bicycle/bicycle_category_list.html'
     context_object_name = 'bicycles'
     paginate_by = 20
 
@@ -12,7 +46,7 @@ class BicycleListView(views.ListView):
         category = self.kwargs['category']
         queryset = self.get_bicycle_queryset(category)
 
-        form = BicycleFilterForm(category, self.request.GET)
+        form = BicycleCategoryFilterForm(category, self.request.GET)
         if form.is_valid():
             filters = {
                 key: value for key, value in form.cleaned_data.items() if value
@@ -34,7 +68,7 @@ class BicycleListView(views.ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['form'] = BicycleFilterForm(self.kwargs['category'], self.request.GET)
+        context['form'] = BicycleCategoryFilterForm(self.kwargs['category'], self.request.GET)
         return context
 
 
@@ -50,40 +84,22 @@ class BicycleDetailView(views.DetailView):
 
         context['images'] = bicycle.bicycle_images.all()
 
-        base_fields = ['name', 'description', 'frame', 'fork', 'brakes', 'gears', 'tyres_size', 'weight', 'color',
-                       'price', 'size']
-
         context['bicycle_fields'] = []
-        for field_name in base_fields:
-            verbose_name = Bicycle._meta.get_field(field_name).verbose_name
-            context['bicycle_fields'].append({
-                'name': field_name,
-                'verbose_name': verbose_name,
-                'value': getattr(bicycle, field_name, None),
-                'is_relation': False,
-            })
 
-        specific_model = None
-        if hasattr(bicycle, 'mountainbicycle'):
-            specific_model = bicycle.mountainbicycle
-            specific_fields = ['fork_travel', 'frame_travel', 'suspension_lockout', 'dropper_post', 'tubeless_ready',
-                               'category']
-        elif hasattr(bicycle, 'roadbicycle'):
-            specific_model = bicycle.roadbicycle
-            specific_fields = ['handlebar_type', 'frame_geometry', 'category']
-        elif hasattr(bicycle, 'electricbicycle'):
-            specific_model = bicycle.electricbicycle
-            specific_fields = ['engine', 'battery', 'display', 'charger', 'motor_power', 'max_speed', 'category']
+        specific_models = {
+            "mountainbicycle": MountainBicycle,
+            "electricbicycle": ElectricBicycle,
+            "roadbicycle": RoadBicycle,
+        }
 
-        if specific_model:
-            for field_name in specific_fields:
-                field = specific_model._meta.get_field(field_name)
-                verbose_name = field.verbose_name
-                context['bicycle_fields'].append({
-                    'name': field_name,
-                    'verbose_name': verbose_name,
-                    'value': getattr(specific_model, field_name, None),
-                    'is_relation': False,
-                })
+        for model_name, model_class in specific_models.items():
+            if hasattr(bicycle, model_name):
+                specific_model = getattr(bicycle, model_name)
+                for field in model_class._meta.get_fields():
+                    if field.name not in ["id", "bicycle_ptr", "quantity"] and isinstance(field, Field):
+                        verbose_name = field.verbose_name
+                        value = getattr(specific_model, field.name)
+                        context['bicycle_fields'].append({'verbose_name': verbose_name, 'value': value})
+                break
 
         return context

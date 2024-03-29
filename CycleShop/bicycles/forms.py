@@ -3,6 +3,16 @@ from .models import MountainBicycleCategory, RoadBicycleCategory, ElectricBicycl
 
 
 class BicycleFilterForm(forms.Form):
+    BICYCLE_CATEGORIES = (
+        ('mountain', 'Mountain Bicycle'),
+        ('road', 'Road Bicycle'),
+        ('electric', 'Electric Bicycle'),
+    )
+
+    category = forms.ChoiceField(choices=BICYCLE_CATEGORIES, required=False, label='Category', widget=forms.RadioSelect)
+
+
+class BicycleCategoryFilterForm(forms.Form):
     def __init__(self, category=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
 

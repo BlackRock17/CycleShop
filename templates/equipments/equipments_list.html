@@ -35,7 +35,6 @@
                         <p class="card-text">{{ equipment.description|truncatewords:20 }}</p>
                         <p class="card-text">Price: {{ equipment.price }}</p>
                         <p class="card-text">Size: {{ equipment.get_size_display }}</p>
-                        <p class="card-text">Quantity: {{ equipment.quantity }}</p>
                         {% if equipment.category %}
                             <p class="card-text">Category: {{ equipment.get_category_display }}</p>
                         {% endif %}

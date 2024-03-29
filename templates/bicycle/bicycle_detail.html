@@ -60,7 +60,7 @@
         <h3>Specifications</h3>
         <table class="table table-striped">
           {% for field in bicycle_fields %}
-              {% if field.name != 'name' and field.name != 'price' and field.name != 'category' %}
+                {% if field.verbose_name not in "name,price,category" %}
                     <tr class="{% cycle 'bg-light' 'bg-secondary-light' %}">
               <th>{{ field.verbose_name|capfirst }}</th>
               <td>

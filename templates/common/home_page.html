@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block main_content %}
+    <a href="{% url 'bicycle_list' %}">All Bicycles</a>
     <a href="{% url 'accessories_list' %}">All Accessories</a>
     <a href="{% url 'components_list' %}">All Components</a>
     <a href="{% url 'equipments_list' %}">All Equipments</a>
