@@ -57,18 +57,27 @@ class BicycleCategoryListView(views.ListView):
 
     @staticmethod
     def get_bicycle_queryset(category):
-        if category == 'mountain':
+        if category == 'MountainBicycle':
             return MountainBicycle.objects.all()
-        elif category == 'road':
+        elif category == 'RoadBicycle':
             return RoadBicycle.objects.all()
-        elif category == 'electric':
+        elif category == 'ElectricBicycle':
             return ElectricBicycle.objects.all()
         else:
             return MountainBicycle.objects.none()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['form'] = BicycleCategoryFilterForm(self.kwargs['category'], self.request.GET)
+        category = self.kwargs['category']
+        context['category'] = category
+        context['form'] = BicycleCategoryFilterForm(category, self.request.GET)
+
+        context['category_names'] = {
+            'MountainBicycle': 'Mountain',
+            'RoadBicycle': 'Road',
+            'ElectricBicycle': 'Electric',
+        }
+
         return context
 
 

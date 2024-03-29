@@ -12,3 +12,8 @@ def get_class_name(value):
 def getattr(obj, attr):
     return obj.__getattribute__(attr)
 
+
+@register.filter
+def get_item(dictionary, key):
+    return dictionary.get(key)
+

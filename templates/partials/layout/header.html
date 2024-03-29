@@ -22,8 +22,10 @@
                     BICYCLE
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Mountain</a></li>
+                    {% for bicycle_class, name in bicycle_class_names.items %}
+                    <li><a class="dropdown-item" href="{% url 'bicycle_category_list' category=bicycle_class %}">{{ name }}</a></li>
                     <li><hr class="dropdown-divider"></li>
+                    {% endfor %}
                 </ul>
             </li>
 
