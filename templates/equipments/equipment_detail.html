@@ -42,7 +42,7 @@
             <h4 class="card-title">{{ equipment.name }}</h4>
             <h5 class="card-subtitle mb-2 text-muted">{{ equipment.get_category_display }}</h5>
             <p class="card-text lead">Price: {{ equipment.price }} USD</p>
-            <a href="#" class="btn btn-primary">Add to Cart</a>
+            <a href="{% url 'add_to_cart' product_type='equipment.Equipment' product_id=equipment.id%}" class="btn btn-primary">Add to Cart</a>
           </div>
         </div>
 

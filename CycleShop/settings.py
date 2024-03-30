@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     "CycleShop.images",
     "CycleShop.common",
     "CycleShop.accounts",
+    "CycleShop.cart",
 ]
 
 MIDDLEWARE = [

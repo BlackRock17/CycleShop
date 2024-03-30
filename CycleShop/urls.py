@@ -13,6 +13,7 @@ urlpatterns = [
     path("accessories/", include("CycleShop.accessories.urls")),
     path("accounts/", include("CycleShop.accounts.urls")),
     path("images/", include("CycleShop.images.urls")),
+    path("cart/", include("CycleShop.cart.urls")),
 ]
 
 if settings.DEBUG:
