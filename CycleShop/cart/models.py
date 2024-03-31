@@ -17,6 +17,8 @@ class Cart(models.Model):
 
 class CartItem(models.Model):
     MAX_PRODUCT_TYPE_LENGTH = 100
+    MAX_PRICE_DIGITS = 10
+    MAX_DECIMAL_PLACES_DIGITS = 2
 
     cart = models.ForeignKey(
         Cart,
@@ -28,6 +30,11 @@ class CartItem(models.Model):
     )
 
     product_id = models.PositiveIntegerField()
+
+    price = models.DecimalField(
+        max_digits=MAX_PRICE_DIGITS,
+        decimal_places=MAX_DECIMAL_PLACES_DIGITS,
+    )
 
     quantity = models.PositiveIntegerField(
         default=1

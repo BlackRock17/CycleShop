@@ -53,7 +53,7 @@
                 {% endif %}
             </h5>
             <p class="card-text lead">Price: {{ bicycle.price }} USD</p>
-            <a href="#" class="btn btn-primary">Add to Cart</a>
+            <a href="{% url 'add_to_cart' product_type='bicycles.Bicycle' product_id=bicycle.id%}" class="btn btn-primary">Add to Cart</a>
           </div>
         </div>
 

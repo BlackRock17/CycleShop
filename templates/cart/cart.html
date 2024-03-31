@@ -1,15 +1,68 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load custom_filters %}
 
 {% block main_content %}
+    <style>
+    .messages {
+    list-style-type: none;
+    padding: 0;
+}
 
-    <h1>Your Cart</h1>
-    {% for item in cart_items %}
-        <div>
-            <p>Product: {{ item.get_product.name }}</p>
-            <p>Quantity: {{ item.quantity }}</p>
-            <p>Total Price: {{ item.get_product.price }}</p>
-        </div>
-    {% endfor %}
+.messages .error {
+    color: red;
+}
+</style>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+    <table>
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in cart_items %}
+            <tr>
+                <td>
+                    {% if item.image %}
+                        <img src="{{ item.image.image.url }}" alt="{{ item.get_product.name }}" width="100">
+                    {% else %}
+                        No Image
+                    {% endif %}
+                </td>
+                <td>{{ item.get_product.name }}</td>
+                <td>{{ item.price }}</td>
+                <td>
+                    <form method="post" action="{% url 'update_cart_item' item.id %}">
+                        {% csrf_token %}
+                        <input type="number" name="quantity" value="{{ item.quantity }}" min="1">
+                        <button type="submit">Update</button>
+                    </form>
+                    <form method="post" action="{% url 'delete_cart_item' item.id %}">
+                        {% csrf_token %}
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+                <td>{{ item.price|multiply:item.quantity }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3">Total Price:</td>
+            <td>{{ total_price }}</td>
+        </tr>
+    </tfoot>
+</table>
 
 {% endblock %}

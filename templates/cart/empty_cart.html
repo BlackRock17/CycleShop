@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+
+{% block main_content %}
+    <h2>Your basket is empty</h2>
+    <p>You have no items in your shopping cart.</p>
+    <p>Click <a href="{% url 'home_page' %}">here</a> to continue shopping.</p>
+{% endblock %}
