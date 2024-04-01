@@ -93,3 +93,13 @@ def delete_cart_item(request, item_id):
         cart_item.delete()
 
     return redirect('cart')
+
+
+def checkout(request):
+    cart = Cart.objects.get(user=request.user)
+    cart_items = cart.cartitem_set.all()
+
+    for item in cart_items:
+        item.delete()
+
+    return render(request, 'cart/checkout.html')

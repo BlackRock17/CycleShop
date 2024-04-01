@@ -108,4 +108,6 @@ class EquipmentDetailView(views.DetailView):
                 break
 
         context['equipment_fields'] = equipment_fields
+        context['quantity'] = equipment.quantity
+
         return context

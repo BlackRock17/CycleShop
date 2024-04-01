@@ -49,7 +49,16 @@
             <h4 class="card-title">{{ component.name }}</h4>
             <h5 class="card-subtitle mb-2 text-muted">{{ component.get_type_display }}</h5>
             <p class="card-text lead">Price: {{ component.price }} USD</p>
-            <a href="#" class="btn btn-primary">Add to Cart</a>
+
+              <div class="d-flex justify-content-between align-items-center">
+                  {% if quantity > 0 %}
+                      <a href="{% url 'add_to_cart' product_type='components.Components' product_id=component.id%}" class="btn btn-primary">Add to Basket</a>
+                      <span class="text-muted">In stock</span>
+                  {% else %}
+                      <span class="text-danger">Out of stock</span>
+                  {% endif %}
+              </div>
+
           </div>
         </div>
 

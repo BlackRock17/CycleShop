@@ -45,4 +45,7 @@ class AccessoryDetailView(views.DetailView):
             {'name': field.name, 'verbose_name': field.verbose_name, 'value': getattr(accessory, field.name)}
             for field in accessory._meta.fields if field.verbose_name not in ("ID", "quantity")
         ]
+
+        context['quantity'] = accessory.quantity
+
         return context

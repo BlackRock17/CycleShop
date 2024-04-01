@@ -111,4 +111,6 @@ class BicycleDetailView(views.DetailView):
                         context['bicycle_fields'].append({'verbose_name': verbose_name, 'value': value})
                 break
 
+        context['quantity'] = bicycle.quantity
+
         return context

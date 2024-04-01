@@ -4,7 +4,7 @@
 
 
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="{% url 'home_page' %}">
                     <img src="{% static 'images/Logo_400x400.jpeg' %}" alt="" width="30" height="24">
                     CYCLE SHOP
                 </a>
@@ -22,9 +22,10 @@
                     BICYCLE
                 </a>
                 <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'bicycle_list' %}">All Bicycles</a></li>
+                    <li><hr class="dropdown-divider"></li>
                     {% for bicycle_class, name in bicycle_class_names.items %}
                     <li><a class="dropdown-item" href="{% url 'bicycle_category_list' category=bicycle_class %}">{{ name }}</a></li>
-                    <li><hr class="dropdown-divider"></li>
                     {% endfor %}
                 </ul>
             </li>
@@ -35,9 +36,10 @@
                     EQUIPMENT
                 </a>
                 <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'equipments_list' %}">All Equipments</a></li>
+                    <li><hr class="dropdown-divider"></li>
                     {% for equipment_class, name in equipment_class_names.items %}
                         <li><a class="dropdown-item" href="{% url 'equipment_category_list' category=equipment_class %}">{{ name }}</a></li>
-                        <li><hr class="dropdown-divider"></li>
                     {% endfor %}
                 </ul>
             </li>
@@ -60,9 +62,10 @@
                     ACCESSORIES
                 </a>
                 <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'accessories_list' %}">All Accessories</a></li>
+                    <li><hr class="dropdown-divider"></li>
                     {% for category in accessories_categories %}
                         <li><a class="dropdown-item" href="{% url 'accessories_list_by_category' category=category.0 %}">{{ category.1 }}</a></li>
-                        <li><hr class="dropdown-divider"></li>
                     {% endfor %}
                 </ul>
             </li>
@@ -81,7 +84,7 @@
 
             <p><a href="#" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" style="padding: 5px">Profile</a></p>
 
-            <p><a href="{% url 'cart' %}" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" style="padding: 5px">Cart</a></p>
+            <p><a href="{% url 'cart' %}" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" style="padding: 5px">Basket</a></p>
 
             {% endif %}
 

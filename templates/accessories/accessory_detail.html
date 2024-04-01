@@ -49,7 +49,16 @@
             <h4 class="card-title">{{ accessory.name }}</h4>
             <h5 class="card-subtitle mb-2 text-muted">{{ accessory.get_category_display }}</h5>
             <p class="card-text lead">Price: {{ accessory.price }} USD</p>
-            <a href="#" class="btn btn-primary">Add to Cart</a>
+
+              <div class="d-flex justify-content-between align-items-center">
+                  {% if quantity > 0 %}
+                      <a href="{% url 'add_to_cart' product_type='accessories.Accessories' product_id=accessory.id%}" class="btn btn-primary">Add to Basket</a>
+                      <span class="text-muted">In stock</span>
+                  {% else %}
+                      <span class="text-danger">Out of stock</span>
+                  {% endif %}
+              </div>
+
           </div>
         </div>
 

@@ -47,5 +47,8 @@ class ComponentDetailView(views.DetailView):
                     'verbose_name': field.verbose_name,
                     'value': getattr(component, field.name),
                 })
+
         context['component_fields'] = component_fields
+        context['quantity'] = component.quantity
+
         return context
