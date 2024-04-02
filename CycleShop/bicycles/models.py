@@ -3,42 +3,42 @@ from CycleShop.images.models import ProductImage
 
 
 class MountainBicycleCategory(models.TextChoices):
-    HARD_TRAIL = "Hard Trail"
-    FULL_SUSPENSION = "Full Suspension"
-    FAT_BIKE = "Fat Bike"
+    HARD_TRAIL = ("Hard Trail", "Hard Trail")
+    FULL_SUSPENSION = ("Full Suspension", "Full Suspension")
+    FAT_BIKE = ("Fat Bike", "Fat Bike")
 
 
 class RoadBicycleCategory(models.TextChoices):
-    GRAVEL_BIKES = "Gravel"
-    CYCLOCROSS_BIKES = "Cyclocross"
-    FIXIE = "Fixie"
-    TRIATHLON = "Triathlon"
+    GRAVEL_BIKES = ("Gravel", "Gravel")
+    CYCLOCROSS_BIKES = ("Cyclocross", "Cyclocross")
+    FIXIE = ("Fixie", "Fixie")
+    TRIATHLON = ("Triathlon", "Triathlon")
 
 
 class ElectricBicycleCategory(models.TextChoices):
-    ELECTRIC_MOUNTAIN = "Electric mountain"
-    ELECTRIC_CITY = "Electric city"
-    ELECTRIC_KIDS = "Electric kids"
-    ELECTRIC_ROAD = "Electric road"
+    ELECTRIC_MOUNTAIN = ("Electric mountain", "Electric mountain")
+    ELECTRIC_CITY = ("Electric city", "Electric city")
+    ELECTRIC_KIDS = ("Electric kids", "Electric kids")
+    ELECTRIC_ROAD = ("Electric road", "Electric road")
 
 
 class BicycleSize(models.TextChoices):
-    SIZE_S = "S"
-    SIZE_M = "M"
-    SIZE_L = "L"
-    SIZE_XL = "XL"
+    SIZE_S = ("S", "S")
+    SIZE_M = ("M", "M")
+    SIZE_L = ("L", "L")
+    SIZE_XL = ("XL", "XL")
 
 
 class TyreSize(models.TextChoices):
-    SIZE_TWENTY_SIX = "26"
-    SIZE_TWENTY_SEVEN = "27.5"
-    SIZE_TWENTY_NINE = "29"
+    SIZE_TWENTY_SIX = ("26", "26")
+    SIZE_TWENTY_SEVEN = ("27.5", "27.5")
+    SIZE_TWENTY_NINE = ("29", "29")
 
 
 class HandlebarType(models.TextChoices):
-    DROP = "Drop"
-    BULLHORN = "Bullhorn"
-    FLAT = "Flat"
+    DROP = ("Drop", "Drop")
+    BULLHORN = ("Bullhorn", "Bullhorn")
+    FLAT = ("Flat", "Flat")
 
 
 class Bicycle(models.Model):

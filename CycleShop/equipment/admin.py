@@ -10,26 +10,26 @@ class BaseEquipmentAdmin(admin.ModelAdmin):
 
 @admin.register(Goggles)
 class GogglesAdmin(BaseEquipmentAdmin):
-    list_display = ('name', 'category', "size", "quantity")
+    list_display = ("name", "category", "size", "quantity")
     list_filter = ("category", "size",)
     search_fields = ("name",)
 
 
 @admin.register(Gloves)
 class GlovesAdmin(BaseEquipmentAdmin):
-    list_display = ('name', 'category', "size", "quantity")
+    list_display = ("name", "category", "size", "quantity")
     list_filter = ("category", "size",)
 
 
 @admin.register(Helmet)
 class HelmetAdmin(BaseEquipmentAdmin):
-    list_display = ('name', 'category', "size", "quantity")
+    list_display = ("name", "category", "size", "quantity")
     list_filter = ("category", "size",)
     search_fields = ("name",)
 
 
 @admin.register(Protection)
 class ProtectionAdmin(BaseEquipmentAdmin):
-    list_display = ('name', 'category', "size", "quantity")
+    list_display = ("name", "category", "size", "quantity")
     list_filter = ("category", "size",)
     search_fields = ("name",)

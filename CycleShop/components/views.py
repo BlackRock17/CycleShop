@@ -12,16 +12,16 @@ class ComponentsListView(views.ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        category = self.request.GET.get('category')
+        category = self.request.GET.get("category")
         if category:
             queryset = queryset.filter(type=category)
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['form'] = ComponentFilterForm(self.request.GET or None)
+        context["form"] = ComponentFilterForm(self.request.GET or None)
 
-        for component in context['components']:
+        for component in context["components"]:
             images = component.components_images.all()
             if images:
                 component.first_image = images[0]
@@ -33,22 +33,21 @@ class ComponentsListView(views.ListView):
 
 class ComponentDetailView(views.DetailView):
     model = Components
-    template_name = 'components/component_detail.html'
-    context_object_name = 'component'
+    template_name = "components/component_detail.html"
+    context_object_name = "component"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         component = self.object
         component_fields = []
         for field in component._meta.fields:
-            if field.name not in ['id', 'quantity']:
+            if field.name not in ["id", "quantity", "name", "price"]:
                 component_fields.append({
-                    'name': field.name,
-                    'verbose_name': field.verbose_name,
-                    'value': getattr(component, field.name),
+                    "name": field.name,
+                    "verbose_name": field.verbose_name,
+                    "value": getattr(component, field.name),
                 })
 
-        context['component_fields'] = component_fields
-        context['quantity'] = component.quantity
+        context["component_fields"] = component_fields
 
         return context

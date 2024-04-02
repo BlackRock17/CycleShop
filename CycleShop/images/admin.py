@@ -5,7 +5,7 @@ from .models import ProductImage
 class ProductImageInline(admin.StackedInline):
     model = ProductImage
     extra = 1
-    fields = ['image']
+    fields = ["image"]
 
 
 admin.site.register(ProductImage)

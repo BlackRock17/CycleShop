@@ -15,35 +15,35 @@ class BicycleListView(views.ListView):
         queryset = Bicycle.objects.all()
         form = BicycleFilterForm(self.request.GET)
         if form.is_valid():
-            category = form.cleaned_data['category']
+            category = form.cleaned_data["category"]
             if category:
                 self.request.GET = self.request.GET.copy()
-                self.request.GET['category'] = category
+                self.request.GET["category"] = category
                 return queryset
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['form'] = BicycleFilterForm(self.request.GET)
+        context["form"] = BicycleFilterForm(self.request.GET)
         return context
 
     def get(self, request, *args, **kwargs):
         queryset = self.get_queryset()
         form = BicycleFilterForm(request.GET)
         if form.is_valid():
-            category = form.cleaned_data['category']
+            category = form.cleaned_data["category"]
             if category:
-                return redirect(reverse('bicycle_category_list', kwargs={'category': category}))
+                return redirect(reverse("bicycle_category_list", kwargs={"category": category}))
         return super().get(request, *args, **kwargs)
 
 
 class BicycleCategoryListView(views.ListView):
-    template_name = 'bicycle/bicycle_category_list.html'
-    context_object_name = 'bicycles'
+    template_name = "bicycle/bicycle_category_list.html"
+    context_object_name = "bicycles"
     paginate_by = 20
 
     def get_queryset(self):
-        category = self.kwargs['category']
+        category = self.kwargs["category"]
         queryset = self.get_bicycle_queryset(category)
 
         form = BicycleCategoryFilterForm(category, self.request.GET)
@@ -57,25 +57,25 @@ class BicycleCategoryListView(views.ListView):
 
     @staticmethod
     def get_bicycle_queryset(category):
-        if category == 'MountainBicycle':
+        if category == "MountainBicycle":
             return MountainBicycle.objects.all()
-        elif category == 'RoadBicycle':
+        elif category == "RoadBicycle":
             return RoadBicycle.objects.all()
-        elif category == 'ElectricBicycle':
+        elif category == "ElectricBicycle":
             return ElectricBicycle.objects.all()
         else:
             return MountainBicycle.objects.none()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        category = self.kwargs['category']
-        context['category'] = category
-        context['form'] = BicycleCategoryFilterForm(category, self.request.GET)
+        category = self.kwargs["category"]
+        context["category"] = category
+        context["form"] = BicycleCategoryFilterForm(category, self.request.GET)
 
-        context['category_names'] = {
-            'MountainBicycle': 'Mountain',
-            'RoadBicycle': 'Road',
-            'ElectricBicycle': 'Electric',
+        context["category_names"] = {
+            "MountainBicycle": "Mountain",
+            "RoadBicycle": "Road",
+            "ElectricBicycle": "Electric",
         }
 
         return context
@@ -83,17 +83,17 @@ class BicycleCategoryListView(views.ListView):
 
 class BicycleDetailView(views.DetailView):
     model = Bicycle
-    template_name = 'bicycle/bicycle_detail.html'
-    context_object_name = 'bicycle'
-    queryset = Bicycle.objects.select_related('mountainbicycle', 'roadbicycle', 'electricbicycle')
+    template_name = "bicycle/bicycle_detail.html"
+    context_object_name = "bicycle"
+    queryset = Bicycle.objects.select_related("mountainbicycle", "roadbicycle", "electricbicycle")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         bicycle = self.get_object()
 
-        context['images'] = bicycle.bicycle_images.all()
+        context["images"] = bicycle.bicycle_images.all()
 
-        context['bicycle_fields'] = []
+        context["bicycle_fields"] = []
 
         specific_models = {
             "mountainbicycle": MountainBicycle,
@@ -108,9 +108,7 @@ class BicycleDetailView(views.DetailView):
                     if field.name not in ["id", "bicycle_ptr", "quantity"] and isinstance(field, Field):
                         verbose_name = field.verbose_name
                         value = getattr(specific_model, field.name)
-                        context['bicycle_fields'].append({'verbose_name': verbose_name, 'value': value})
+                        context["bicycle_fields"].append({"verbose_name": verbose_name, "value": value})
                 break
-
-        context['quantity'] = bicycle.quantity
 
         return context

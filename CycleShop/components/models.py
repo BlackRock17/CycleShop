@@ -5,23 +5,23 @@ from CycleShop.images.models import ProductImage
 
 
 class ComponentsType(models.TextChoices):
-    CASSETTES = "Cassettes"
-    CHAINS = "Chains"
-    FORKS = "Forks"
-    TUBELESS_TYRES = "Tubeless Tyres"
-    INNER_TUBES = "Inner Tubes"
-    HUBS = "Hubs"
-    REAR_SHOCK_ABSORBERS = "Rear Shock Absorbers"
-    REAR_DERAILLEURS = "Rear Derailleurs"
-    SPOKES = "Spokes"
-    SEATPOST_CLAMPS = "Seatpost Clamps"
-    SHIFTERS = "Shifters"
-    HANDLEBARS = "Handlebars"
-    CRANKS = "Cranks"
-    PEDALS = "Pedals"
-    FRONT_DERAILLEUR = "Front Derailleur"
-    SADDLES = "Saddles"
-    BRAKES = "Brakes"
+    CASSETTES = ("Cassettes", "Cassettes")
+    CHAINS = ("Chains", "Chains")
+    FORKS = ("Forks", "Forks")
+    TUBELESS_TYRES = ("Tubeless Tyres", "Tubeless Tyres")
+    INNER_TUBES = ("Inner Tubes", "Inner Tubes")
+    HUBS = ("Hubs", "Hubs")
+    REAR_SHOCK_ABSORBERS = ("Rear Shock Absorbers", "Rear Shock Absorbers")
+    REAR_DERAILLEURS = ("Rear Derailleurs", "Rear Derailleurs")
+    SPOKES = ("Spokes", "Spokes")
+    SEATPOST_CLAMPS = ("Seatpost Clamps", "Seatpost Clamps")
+    SHIFTERS = ("Shifters", "Shifters")
+    HANDLEBARS = ("Handlebars", "Handlebars")
+    CRANKS = ("Cranks", "Cranks")
+    PEDALS = ("Pedals", "Pedals")
+    FRONT_DERAILLEUR = ("Front Derailleur", "Front Derailleur")
+    SADDLES = ("Saddles", "Saddles")
+    BRAKES = ("Brakes", "Brakes")
 
 
 class Components(models.Model):
@@ -55,8 +55,8 @@ class Components(models.Model):
     price = models.DecimalField(
         max_digits=8,
         decimal_places=2,
-        null=True,
-        blank=True,
+        null=False,
+        blank=False,
         default=0.00
     )
 

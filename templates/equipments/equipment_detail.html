@@ -44,7 +44,7 @@
             <p class="card-text lead">Price: {{ equipment.price }} USD</p>
 
               <div class="d-flex justify-content-between align-items-center">
-                  {% if quantity > 0 %}
+                  {% if equipment.quantity > 0 %}
                       <a href="{% url 'add_to_cart' product_type='equipment.Equipment' product_id=equipment.id%}" class="btn btn-primary">Add to Basket</a>
                       <span class="text-muted">In stock</span>
                   {% else %}

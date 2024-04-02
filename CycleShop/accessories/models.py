@@ -5,19 +5,19 @@ from CycleShop.images.models import ProductImage
 
 
 class Category(models.TextChoices):
-    BIKE_CARRIERS = "Bike Carriers"
-    BIKE_RACKS = "Bike Racks"
-    CHILD_BIKE_SEAD = "Child Bike Seat"
-    PANNIERS_AND_BAGS = "Panniers and Bags"
-    BELLS_AND_HORNS = "Bells and Horns"
-    MUDGUARDS = "Mudguards"
-    LOCKS = "Locks"
-    BASKETS = "Baskets"
-    MIRRORS = "Mirrors"
-    PUMPS = "Pumps"
-    FOOTPEGS = "Footpegs"
-    PHONE_HOLDER = "Phone Holder"
-    FRAME_AND_SADDLE_GABS = "Frame and Saddle Bags"
+    BIKE_CARRIERS = ("Bike Carriers", "Bike Carriers")
+    BIKE_RACKS = ("Bike Racks", "Bike Racks")
+    CHILD_BIKE_SEAD = ("Child Bike Seat", "Child Bike Seat")
+    PANNIERS_AND_BAGS = ("Panniers and Bags", "Panniers and Bags")
+    BELLS_AND_HORNS = ("Bells and Horns", "Bells and Horns")
+    MUDGUARDS = ("Mudguards", "Mudguards")
+    LOCKS = ("Locks", "Locks")
+    BASKETS = ("Baskets", "Baskets")
+    MIRRORS = ("Mirrors", "Mirrors")
+    PUMPS = ("Pumps", "Pumps")
+    FOOTPEGS = ("Footpegs", "Footpegs")
+    PHONE_HOLDER = ("Phone Holder", "Phone Holder")
+    FRAME_AND_SADDLE_GABS = ("Frame and Saddle Bags", "Frame and Saddle Bags")
 
 
 class Accessories(models.Model):

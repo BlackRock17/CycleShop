@@ -8,6 +8,6 @@ class HomePageView(views.TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['accessories_categories'] = Category.choices
+        context["accessories_categories"] = Category.choices
         return context
 

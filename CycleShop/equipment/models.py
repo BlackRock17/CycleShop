@@ -5,36 +5,36 @@ MAX_CATEGORY_LENGTH = 50
 
 
 class GogglesCategory(models.TextChoices):
-    SUNGLASSES = "Sunglasses",
-    SAFETY_GOGGLES = "Safety Goggles"
+    SUNGLASSES = ("Sunglasses", "Sunglasses")
+    SAFETY_GOGGLES = ("Safety Goggles", "Safety Goggles")
 
 
 class ProtectionCategory(models.TextChoices):
-    KNEE_PADS = "Knee Pads"
-    ELBOW_PADS = "Elbow Pads"
-    NECK_PROTECTORS = "Neck Protectors"
-    BODY_PROTECTORS = "Body Protectors"
-    SET_PROTECTORS = "Protectors Set"
+    KNEE_PADS = ("Knee Pads", "Knee Pads")
+    ELBOW_PADS = ("Elbow Pads", "Elbow Pads")
+    NECK_PROTECTORS = ("Neck Protectors", "Neck Protectors")
+    BODY_PROTECTORS = ("Body Protectors", "Body Protectors")
+    SET_PROTECTORS = ("Protectors Set", "Protectors Set")
 
 
 class HelmetCategory(models.TextChoices):
-    MOUNTAIN = "Mountain"
-    MOUNTAIN_FULL_FACE = "Mountain Full Face"
-    ROAD = "Road"
-    URBAN = "Urban"
+    MOUNTAIN = ("Mountain", "Mountain")
+    MOUNTAIN_FULL_FACE = ("Mountain Full Face", "Mountain Full Face")
+    ROAD = ("Road", "Road")
+    URBAN = ("Urban", "Urban")
 
 
 class GlovesCategory(models.TextChoices):
-    LONG_FINGER = "Long Finger Gloves"
-    SHORT_FINGER = "Short Finger Gloves"
-    WINTER_GLOVES = "Winter Gloves"
+    LONG_FINGER = ("Long Finger Gloves", "Long Finger Gloves")
+    SHORT_FINGER = ("Short Finger Gloves", "Short Finger Gloves")
+    WINTER_GLOVES = ("Winter Gloves", "Winter Gloves")
 
 
 class EquipmentSize(models.TextChoices):
-    SIZE_S = "S"
-    SIZE_M = "M"
-    SIZE_L = "L"
-    SIZE_XL = "XL"
+    SIZE_S = ("S", "S")
+    SIZE_M = ("M", "M")
+    SIZE_L = ("L", "L")
+    SIZE_XL = ("XL", "XL")
 
 
 class Equipment(models.Model):
@@ -75,13 +75,13 @@ class Equipment(models.Model):
 
     @staticmethod
     def get_category_choices(equipment_type):
-        if equipment_type == 'Goggles':
+        if equipment_type == "Goggles":
             return GogglesCategory.choices
-        elif equipment_type == 'Protection':
+        elif equipment_type == "Protection":
             return ProtectionCategory.choices
-        elif equipment_type == 'Helmet':
+        elif equipment_type == "Helmet":
             return HelmetCategory.choices
-        elif equipment_type == 'Gloves':
+        elif equipment_type == "Gloves":
             return GlovesCategory.choices
         else:
             return []

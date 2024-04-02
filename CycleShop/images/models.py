@@ -6,42 +6,42 @@ class ProductImage(models.Model):
     MAX_PHOTO_SIZE = 5 * 1024 * 1024
 
     image = models.ImageField(
-        upload_to='product_images/',
+        upload_to="product_images/",
         null=False,
         blank=False,
         validators=[MaxFileSizeValidator(limit_value=MAX_PHOTO_SIZE,)],
     )
 
     bicycle = models.ForeignKey(
-        'bicycles.Bicycle',
+        "bicycles.Bicycle",
         null=True,
         blank=True,
         on_delete=models.CASCADE,
-        related_name='bicycle_images'
+        related_name="bicycle_images"
     )
 
     accessory = models.ForeignKey(
-        'accessories.Accessories',
+        "accessories.Accessories",
         null=True,
         blank=True,
         on_delete=models.CASCADE,
-        related_name='accessory_images',
+        related_name="accessory_images",
     )
 
     components = models.ForeignKey(
-        'components.Components',
+        "components.Components",
         null=True,
         blank=True,
         on_delete=models.CASCADE,
-        related_name='components_images',
+        related_name="components_images",
     )
 
     equipment = models.ForeignKey(
-        'equipment.Equipment',
+        "equipment.Equipment",
         null=True,
         blank=True,
         on_delete=models.CASCADE,
-        related_name='equipment_images',
+        related_name="equipment_images",
     )
 
     def __str__(self):

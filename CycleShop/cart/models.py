@@ -42,7 +42,7 @@ class CartItem(models.Model):
 
     def get_product(self):
         try:
-            app_label, model_name = self.product_type.split('.')
+            app_label, model_name = self.product_type.split(".")
             model = apps.get_model(app_label, model_name)
             return model.objects.get(id=self.product_id)
         except (LookupError, model.DoesNotExist):

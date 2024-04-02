@@ -51,7 +51,7 @@
             <p class="card-text lead">Price: {{ accessory.price }} USD</p>
 
               <div class="d-flex justify-content-between align-items-center">
-                  {% if quantity > 0 %}
+                  {% if accessory.quantity > 0 %}
                       <a href="{% url 'add_to_cart' product_type='accessories.Accessories' product_id=accessory.id%}" class="btn btn-primary">Add to Basket</a>
                       <span class="text-muted">In stock</span>
                   {% else %}
