@@ -76,13 +76,15 @@
 
             {% if not request.user.is_authenticated %}
 
-            <p><a href="#" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" style="padding: 5px">LogIn</a></p>
+            <p><a href="{% url 'login' %}" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" style="padding: 5px">LogIn</a></p>
 
-            <p><a href="#" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" style="padding: 5px">Register</a></p>
+            <p><a href="{% url 'register' %}" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" style="padding: 5px">Register</a></p>
 
             {% else %}
 
             <p><a href="#" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" style="padding: 5px">Profile</a></p>
+
+            <p><a href="{% url 'logout' %}" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" style="padding: 5px">Log out</a></p>
 
             <p><a href="{% url 'cart' %}" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" style="padding: 5px">Basket</a></p>
 
