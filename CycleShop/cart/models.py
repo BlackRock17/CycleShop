@@ -1,12 +1,13 @@
 from django.apps import apps
-from django.contrib.auth.models import User
 from django.db import models
+
+from CycleShop.accounts.models import CycleShopUser
 
 
 class Cart(models.Model):
 
     user = models.ForeignKey(
-        User,
+        CycleShopUser,
         on_delete=models.CASCADE
     )
 
