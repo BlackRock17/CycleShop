@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block main_content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header bg-danger text-white">
+                    <h4 class="mb-0">Delete Profile</h4>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Are you sure you want to delete your profile?</p>
+                    <p class="card-text">This action is irreversible and will erase all your data.</p>
+                    <form method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Delete Profile</button>
+                        <a href="{% url 'profile_details' pk=object.pk %}" class="btn btn-secondary">Cancel</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

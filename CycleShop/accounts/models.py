@@ -44,3 +44,53 @@ class CycleShopUser(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(_("date joined"), default=timezone.now)
 
     USERNAME_FIELD = "username"
+
+
+class Profile(models.Model):
+    MAX_FIRST_NAME_LENGTH = 25
+    MAX_LAST_NAME_LENGTH = 25
+    MAX_TOWN_LENGTH = 25
+    MAX_ADDRESS_LENGTH = 100
+    MAX_POSTCODE_LENGTH = 10
+
+    first_name = models.CharField(
+        max_length=MAX_FIRST_NAME_LENGTH,
+        null=False,
+        blank=False,
+    )
+
+    last_name = models.CharField(
+        max_length=MAX_LAST_NAME_LENGTH,
+        null=False,
+        blank=False,
+    )
+
+    email = models.EmailField(
+        unique=True,
+        null=False,
+        blank=False,
+    )
+
+    town = models.CharField(
+        max_length=MAX_TOWN_LENGTH,
+        null=False,
+        blank=False,
+    )
+
+    address = models.CharField(
+        max_length=MAX_ADDRESS_LENGTH,
+        null=False,
+        blank=False,
+    )
+
+    postcode = models.CharField(
+        max_length=MAX_POSTCODE_LENGTH,
+        null=False,
+        blank=False,
+    )
+
+    user = models.OneToOneField(
+        CycleShopUser,
+        primary_key=True,
+        on_delete=models.CASCADE,
+    )

@@ -43,7 +43,7 @@ def add_to_cart(request, product_type, product_id):
 
 
 def cart_view(request):
-    cart = Cart.objects.get(user=request.user)
+    cart, created = Cart.objects.get_or_create(user=request.user)
     cart_items = cart.cartitem_set.all()
 
     if not cart_items:
