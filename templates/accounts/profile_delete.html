@@ -11,7 +11,7 @@
                 <div class="card-body">
                     <p class="card-text">Are you sure you want to delete your profile?</p>
                     <p class="card-text">This action is irreversible and will erase all your data.</p>
-                    <form method="post">
+                    <form action="{% url 'profile_delete' pk=request.user.pk %}" method="post">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-danger">Delete Profile</button>
                         <a href="{% url 'profile_details' pk=object.pk %}" class="btn btn-secondary">Cancel</a>

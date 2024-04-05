@@ -1,4 +1,4 @@
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect
@@ -6,6 +6,8 @@ from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, RedirectView, DetailView, UpdateView, DeleteView
 from CycleShop.accounts.forms import CycleShopUserCreationForm, ProfileForm
 from CycleShop.accounts.models import Profile
+
+UserModel = get_user_model()
 
 
 class LogInUserView(LoginView):
@@ -48,14 +50,17 @@ class ProfileEditView(UpdateView):
         })
 
 
-class ProfileDeleteView(LoginRequiredMixin, DeleteView):
-    model = Profile
-    template_name = "accounts/delete_profile.html"
+class ProfileDeleteView(DeleteView):
+    model = UserModel
+    template_name = "accounts/profile_delete.html"
     success_url = reverse_lazy("home_page")
 
+    def get_object(self, queryset=None):
+        return self.request.user
+
     def delete(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        self.object.delete()
+        user = self.get_object()
+        user.delete()
         return redirect(self.get_success_url())
 
 

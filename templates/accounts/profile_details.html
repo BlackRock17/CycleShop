@@ -35,8 +35,8 @@
                     </div>
                 </div>
                 <div class="card-footer text-right">
-                    <a href="{% url 'profile_edit' pk=profile.pk %}" class="btn btn-primary">Edit Profile</a>
-                    <a href="{% url 'profile_delete' pk=profile.pk %}" class="btn btn-danger">Delete Profile</a>
+                    <a href="{% url 'profile_edit' pk=request.user.pk %}" class="btn btn-primary">Edit Profile</a>
+                    <a href="{% url 'profile_delete' pk=request.user.pk %}" class="btn btn-danger">Delete Profile</a>
                     <a href="#" class="btn btn-secondary">Order history</a>
                 </div>
             </div>
