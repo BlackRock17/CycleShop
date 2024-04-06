@@ -66,7 +66,6 @@ class Profile(models.Model):
     )
 
     email = models.EmailField(
-        unique=True,
         null=False,
         blank=False,
     )

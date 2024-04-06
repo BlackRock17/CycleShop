@@ -1,7 +1,11 @@
 from django.apps import apps
 from django.contrib import messages
 from django.shortcuts import render, redirect
+from django.urls import reverse
+
 from .models import Cart, CartItem
+from ..accounts.models import Profile
+from ..common.models import Order, OrderItem
 
 
 def get_product_image(product):
@@ -99,7 +103,31 @@ def checkout(request):
     cart = Cart.objects.get(user=request.user)
     cart_items = cart.cartitem_set.all()
 
-    for item in cart_items:
-        item.delete()
+    profile = Profile.objects.filter(user=request.user).first()
+
+    if not profile or not all(
+            [profile.first_name, profile.last_name, profile.email, profile.town, profile.address, profile.postcode]):
+        return redirect(reverse('profile_edit', kwargs={'pk': profile.pk}) + '?next=' + request.path)
+
+    if request.method == "POST":
+        total_price = sum(item.price * item.quantity for item in cart_items)
+        shipping_address = request.POST.get("shipping_address")
+        order = Order.objects.create(
+            user=request.user,
+            total_price=total_price,
+            shipping_address=shipping_address
+        )
+
+        for item in cart_items:
+            OrderItem.objects.create(
+                order=order,
+                product_type=item.product_type,
+                product_id=item.product_id,
+                price=item.price,
+                quantity=item.quantity
+            )
+
+        cart_items.delete()
+        return render(request, "cart/checkout_success.html", {"order": order})
 
     return render(request, "cart/checkout.html")

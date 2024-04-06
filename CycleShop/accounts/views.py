@@ -45,9 +45,10 @@ class ProfileEditView(UpdateView):
     template_name = "accounts/profile_edit.html"
 
     def get_success_url(self):
-        return reverse("profile_details", kwargs={
-            "pk": self.object.pk,
-        })
+        next_url = self.request.GET.get("next")
+        if next_url:
+            return next_url
+        return reverse("profile_details", kwargs={"pk": self.object.pk})
 
 
 class ProfileDeleteView(DeleteView):
