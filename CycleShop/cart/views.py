@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 
 from .models import Cart, CartItem
+from ..accounts.forms import CheckoutForm
 from ..accounts.models import Profile
 from ..common.models import Order, OrderItem
 
@@ -107,16 +108,18 @@ def checkout(request):
 
     if not profile or not all(
             [profile.first_name, profile.last_name, profile.email, profile.town, profile.address, profile.postcode]):
-        return redirect(reverse('profile_edit', kwargs={'pk': profile.pk}) + '?next=' + request.path)
+        return redirect(reverse("profile_edit", kwargs={"pk": profile.pk}) + "?next=" + request.path)
 
     if request.method == "POST":
-        total_price = sum(item.price * item.quantity for item in cart_items)
-        shipping_address = request.POST.get("shipping_address")
-        order = Order.objects.create(
-            user=request.user,
-            total_price=total_price,
-            shipping_address=shipping_address
-        )
+        form = CheckoutForm(request.POST, user=request.user)
+        if form.is_valid():
+            total_price = sum(item.price * item.quantity for item in cart_items)
+            shipping_address = form.cleaned_data["address"]
+            order = Order.objects.create(
+                user=request.user,
+                total_price=total_price,
+                shipping_address=shipping_address
+            )
 
         for item in cart_items:
             OrderItem.objects.create(
@@ -129,5 +132,9 @@ def checkout(request):
 
         cart_items.delete()
         return render(request, "cart/checkout_success.html", {"order": order})
+    else:
+        form = CheckoutForm(user=request.user)
 
-    return render(request, "cart/checkout.html")
+    context = {'form': form, 'cart_items': cart_items}
+
+    return render(request, "cart/checkout.html", context)

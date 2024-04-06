@@ -82,6 +82,10 @@
 
             {% else %}
 
+            {% if request.user.is_authenticated and request.user.is_staff %}
+                <p><p><a href="{% url 'admin:index' %}" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" style="padding: 5px">Administration</a></p>
+            {% endif %}
+
             <p><a href="{% url 'profile_details' pk=request.user.pk %}" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" style="padding: 5px">Profile</a></p>
 
             <p><a href="{% url 'logout' %}" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" style="padding: 5px">Log out</a></p>

@@ -4,8 +4,7 @@
     <h2>Checkout</h2>
     <form method="post" action="{% url 'checkout' %}">
         {% csrf_token %}
-        <label for="shipping_address">Shipping Address:</label>
-        <textarea name="shipping_address" id="shipping_address" required></textarea>
+        {{ form.as_p }}
         <button type="submit">Place Order</button>
     </form>
 {% endblock %}
