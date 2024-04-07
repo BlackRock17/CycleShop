@@ -27,21 +27,25 @@ class BicycleTypeFilter(admin.SimpleListFilter):
 
 
 class BaseBicycleAdmin(admin.ModelAdmin):
+    list_display = ("name", "category", "size", "tyres_size", "quantity")
+    list_editable = ("quantity",)
+    list_filter = ("category", "size", "tyres_size")
+    search_fields = ("name",)
     inlines = [ProductImageInline]
 
 
 @admin.register(MountainBicycle)
 class MountainBicycleAdmin(BaseBicycleAdmin):
-    list_display = ("name", "category")
+    pass
 
 
 @admin.register(RoadBicycle)
 class RoadBicycleAdmin(BaseBicycleAdmin):
-    list_display = ("name", "category")
+    pass
 
 
 @admin.register(ElectricBicycle)
 class ElectricBicycleAdmin(BaseBicycleAdmin):
-    list_display = ("name", "category")
+    pass
 
 

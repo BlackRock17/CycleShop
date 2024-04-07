@@ -5,31 +5,28 @@ from CycleShop.images.admin import ProductImageInline
 
 
 class BaseEquipmentAdmin(admin.ModelAdmin):
+    list_display = ("name", "category", "size", "quantity")
+    list_editable = ("quantity",)
+    list_filter = ("category", "size",)
+    search_fields = ("name",)
     inlines = [ProductImageInline]
 
 
 @admin.register(Goggles)
 class GogglesAdmin(BaseEquipmentAdmin):
-    list_display = ("name", "category", "size", "quantity")
-    list_filter = ("category", "size",)
-    search_fields = ("name",)
+    pass
 
 
 @admin.register(Gloves)
 class GlovesAdmin(BaseEquipmentAdmin):
-    list_display = ("name", "category", "size", "quantity")
-    list_filter = ("category", "size",)
+    pass
 
 
 @admin.register(Helmet)
 class HelmetAdmin(BaseEquipmentAdmin):
-    list_display = ("name", "category", "size", "quantity")
-    list_filter = ("category", "size",)
-    search_fields = ("name",)
+    pass
 
 
 @admin.register(Protection)
 class ProtectionAdmin(BaseEquipmentAdmin):
-    list_display = ("name", "category", "size", "quantity")
-    list_filter = ("category", "size",)
-    search_fields = ("name",)
+    pass

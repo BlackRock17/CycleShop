@@ -1,99 +1,98 @@
 {% load static %}
 
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'home_page' %}">
+            <img src="{% static 'images/Logo_400x400.jpeg' %}" alt="" width="30" height="30" class="d-inline-block align-top me-2">
+            CYCLE SHOP
+        </a>
 
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <div class="container-fluid">
-                <a class="navbar-brand" href="{% url 'home_page' %}">
-                    <img src="{% static 'images/Logo_400x400.jpeg' %}" alt="" width="30" height="24">
-                    CYCLE SHOP
-                </a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        BICYCLE
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'bicycle_list' %}">All Bicycles</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        {% for bicycle_class, name in bicycle_class_names.items %}
+                        <li><a class="dropdown-item" href="{% url 'bicycle_category_list' category=bicycle_class %}">{{ name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        EQUIPMENT
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'equipments_list' %}">All Equipments</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        {% for equipment_class, name in equipment_class_names.items %}
+                            <li><a class="dropdown-item" href="{% url 'equipment_category_list' category=equipment_class %}">{{ name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    BICYCLE
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="{% url 'bicycle_list' %}">All Bicycles</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    {% for bicycle_class, name in bicycle_class_names.items %}
-                    <li><a class="dropdown-item" href="{% url 'bicycle_category_list' category=bicycle_class %}">{{ name }}</a></li>
-                    {% endfor %}
-                </ul>
-            </li>
-
-
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    EQUIPMENT
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="{% url 'equipments_list' %}">All Equipments</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    {% for equipment_class, name in equipment_class_names.items %}
-                        <li><a class="dropdown-item" href="{% url 'equipment_category_list' category=equipment_class %}">{{ name }}</a></li>
-                    {% endfor %}
-                </ul>
-            </li>
-
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    COMPONENTS
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="{% url 'components_list' %}">All Components</a></li>
-                    <li><hr class="dropdown-divider"></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        COMPONENTS
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'components_list' %}">All Components</a></li>
+                        <li><hr class="dropdown-divider"></li>
                         {% for components_type in components_types %}
                             <li><a class="dropdown-item" href="{% url 'components_list' %}?category={{ components_type.0 }}">{{ components_type.1 }}</a></li>
                         {% endfor %}
-                </ul>
-            </li>
+                    </ul>
+                </li>
 
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    ACCESSORIES
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="{% url 'accessories_list' %}">All Accessories</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    {% for category in accessories_categories %}
-                        <li><a class="dropdown-item" href="{% url 'accessories_list_by_category' category=category.0 %}">{{ category.1 }}</a></li>
-                    {% endfor %}
-                </ul>
-            </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        ACCESSORIES
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'accessories_list' %}">All Accessories</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        {% for category in accessories_categories %}
+                            <li><a class="dropdown-item" href="{% url 'accessories_list_by_category' category=category.0 %}">{{ category.1 }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            </ul>
 
-        </ul>
-
-            </div>
-
-            {% if not request.user.is_authenticated %}
-
-            <p><a href="{% url 'login' %}" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" style="padding: 5px">Log In</a></p>
-
-            <p><a href="{% url 'register' %}" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" style="padding: 5px">Register</a></p>
-
-            {% else %}
-
-            {% if request.user.is_authenticated and request.user.is_staff %}
-                <p><p><a href="{% url 'admin:index' %}" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" style="padding: 5px">Administration</a></p>
-            {% endif %}
-
-            <p><a href="{% url 'profile_details' pk=request.user.pk %}" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" style="padding: 5px">Profile</a></p>
-
-            <p><a href="{% url 'logout' %}" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" style="padding: 5px">Log out</a></p>
-
-            <p><a href="{% url 'cart' %}" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" style="padding: 5px">Basket</a></p>
-
-            {% endif %}
-
+            <ul class="navbar-nav ms-auto">
+                {% if not request.user.is_authenticated %}
+                <li class="nav-item">
+                    <a href="{% url 'login' %}" class="nav-link">Log In</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'register' %}" class="nav-link">Register</a>
+                </li>
+                {% else %}
+                {% if request.user.is_authenticated and request.user.is_staff %}
+                <li class="nav-item">
+                    <a href="{% url 'admin:index' %}" class="nav-link">Administration</a>
+                </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a href="{% url 'profile_details' pk=request.user.pk %}" class="nav-link">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'logout' %}" class="nav-link">Log out</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'cart' %}" class="nav-link">
+                        <i class="fas fa-shopping-cart"></i> Basket
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
         </div>
-
-    </nav>
+    </div>
+</nav>
