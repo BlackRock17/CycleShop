@@ -46,5 +46,7 @@ class CartItem(models.Model):
             app_label, model_name = self.product_type.split(".")
             model = apps.get_model(app_label, model_name)
             return model.objects.get(id=self.product_id)
-        except (LookupError, model.DoesNotExist):
+        except LookupError:
+            return None
+        except models.ObjectDoesNotExist:
             return None
