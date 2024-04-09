@@ -1,90 +1,51 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% load static %}
 
 {% block main_content %}
-
-<h1 class="text-center mb-4">
-    All Bicycles
-</h1>
+<div class="row">
     <div class="col-md-3">
-  <form method="get">
-    {% for field in form %}
-      <div class="mb-3">
-        {{ field.label_tag }}
-        {{ field }}
-      </div>
-    {% endfor %}
-    <button type="submit" class="btn btn-primary">Filter</button>
-  </form>
-</div>
-
-{% if category_form %}
-    <div class="col-md-3">
-        <h4>Filter by {{ request.GET.category|title }} Category</h4>
-        <form method="get">
-            {% for field in category_form %}
-                <div class="mb-3">
-                    {{ field.label_tag }}
-                    {{ field }}
-                </div>
-            {% endfor %}
+        <form method="get" action="{% url 'bicycle_list' %}">
+            <div class="pl-3">
+                {% for field in form %}
+                    <div class="form-group">
+                        {% for radio in field %}
+                            <div class="form-check">
+                                {{ radio.tag }}
+                                <label class="form-check-label" for="{{ radio.id_for_label }}">
+                                    {{ radio.choice_label }}
+                                </label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
             <button type="submit" class="btn btn-primary">Filter</button>
         </form>
     </div>
-{% endif %}
-
-    <div class="row">
-        {% for bicycle in bicycle_list %}
+    <div class="col-md-9">
+        <div class="row">
+            {% for bike in bicycle_list %}
             <div class="col-md-4 mb-4">
-                <div class="card h-100" style="width: 450px;">
-                    <div class="card-img-container" style="height: 300px; display: flex; justify-content: center; align-items: center; overflow: hidden;">
-                        {% if bicycle.bicycle_images.exists %}
-                            {% with bicycle.bicycle_images.first as first_image %}
-                                <img src="{{ first_image.image.url }}" alt="{{ bicycle.name }}" class="card-img-top" style="max-width: 100%; object-fit: contain;">
-                            {% endwith %}
-                        {% else %}
-                            <img src="{% static 'images/default.jpg' %}" alt="Default Image" class="card-img-top" style="max-width: 100%; max-height: 100%; object-fit: contain;">
-                        {% endif %}
+                <div class="card h-100">
+                    <div class="card-img-container">
+                        {% with bike.bicycle_images.all|first as bike_image %}
+                            {% if bike_image %}
+                                <img src="{{ bike_image.image.url }}" class="card-img-top" alt="{{ bike.name }}">
+                            {% else %}
+                                <img src="{% static 'images/default.jpg' %}" class="card-img-top" alt="Default Bike Image">
+                            {% endif %}
+                        {% endwith %}
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">{{ bicycle.name }}</h5>
-                        <p class="card-text">{{ bicycle.description|truncatewords:20 }}</p>
-                        <p class="card-text">Price: {{ bicycle.price }}</p>
-                        <p class="card-text">Size: {{ bicycle.get_size_display }}</p>
-                        {% if bicycle.category %}
-                            <p class="card-text">Category: {{ bicycle.get_category_display }}</p>
-                        {% endif %}
-                        <a href="{% url 'bicycle_detail' pk=bicycle.pk %}" class="btn btn-primary">View Details</a>
+                        <h5 class="card-title">{{ bike.name }}</h5>
+                        <p class="card-text">{{ bike.description }}</p>
+                        <p class="card-text price">{{ bike.price }} USD</p>
+                        <a href="{% url 'bicycle_detail' pk=bike.pk %}" class="btn btn-primary">More Info</a>
                     </div>
                 </div>
             </div>
-        {% empty %}
-            <p>No bicycles found.</p>
-        {% endfor %}
+            {% endfor %}
+        </div>
     </div>
-
-    {% if is_paginated %}
-      <nav aria-label="Page navigation">
-        <ul class="pagination justify-content-center">
-          {% if page_obj.has_previous %}
-            <li class="page-item"><a class="page-link" href="?page=1">&laquo; First</a></li>
-            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
-          {% endif %}
-
-          {% for num in page_obj.paginator.page_range %}
-            {% if page_obj.number == num %}
-              <li class="page-item active"><a class="page-link" href="#">{{ num }}</a></li>
-            {% else %}
-              <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
-            {% endif %}
-          {% endfor %}
-
-          {% if page_obj.has_next %}
-            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
-            <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a></li>
-          {% endif %}
-        </ul>
-      </nav>
-  {% endif %}
-
+</div>
 {% endblock %}

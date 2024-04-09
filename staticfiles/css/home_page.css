@@ -1,0 +1,25 @@
+.card-home {
+    position: relative;
+}
+
+.card-img-top {
+    height: 300px;
+    object-fit: cover;
+}
+
+.card-title-home {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #3bb88d;
+    font-size: 72px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    font-family: Papyrus, fantasy, sans-serif;
+    text-decoration: none;
+}
+
+.card-title:hover {
+    text-decoration: none;
+}

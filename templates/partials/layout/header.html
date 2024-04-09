@@ -60,7 +60,7 @@
                         <li><a class="dropdown-item" href="{% url 'accessories_list' %}">All Accessories</a></li>
                         <li><hr class="dropdown-divider"></li>
                         {% for category in accessories_categories %}
-                            <li><a class="dropdown-item" href="{% url 'accessories_list_by_category' category=category.0 %}">{{ category.1 }}</a></li>
+                            <li><a class="dropdown-item" href="{% url 'accessories_list' %}?category={{ category.0 }}">{{ category.1 }}</a></li>
                         {% endfor %}
                     </ul>
                 </li>

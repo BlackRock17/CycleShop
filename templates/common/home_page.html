@@ -2,67 +2,40 @@
 {% load static %}
 
 {% block main_content %}
-<style>
-    .card {
-        position: relative;
-    }
-
-    .card-img-top {
-        height: 300px;
-        object-fit: cover;
-    }
-
-    .card-title {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: #3bb88d;
-        font-size: 72px;
-        font-weight: bold;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        font-family: Papyrus, fantasy, sans-serif;
-        text-decoration: none;
-    }
-
-    .card-title:hover {
-        text-decoration: none;
-    }
-</style>
 
 <div class="container">
     <div class="row">
         <div class="col-md-6 mb-4">
-            <div class="card">
+            <div class="card-home">
                 <a href="{% url 'bicycle_list' %}">
                     <img src="{% static 'images/bicycles.jpg' %}" class="card-img-top" alt="Bicycles">
-                    <h5 class="card-title">Bicycles</h5>
+                    <h5 class="card-title-home">Bicycles</h5>
                 </a>
             </div>
         </div>
         <div class="col-md-6 mb-4">
-            <div class="card">
+            <div class="card-home">
                 <a href="{% url 'accessories_list' %}">
                     <img src="{% static 'images/accessories.jpg' %}" class="card-img-top" alt="Accessories">
-                    <h5 class="card-title">Accessories</h5>
+                    <h5 class="card-title-home">Accessories</h5>
                 </a>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-6 mb-4">
-            <div class="card">
+            <div class="card-home">
                 <a href="{% url 'components_list' %}">
                     <img src="{% static 'images/components.jpg' %}" class="card-img-top" alt="Components">
-                    <h5 class="card-title">Components</h5>
+                    <h5 class="card-title-home">Components</h5>
                 </a>
             </div>
         </div>
         <div class="col-md-6 mb-4">
-            <div class="card">
+            <div class="card-home">
                 <a href="{% url 'equipments_list' %}">
                     <img src="{% static 'images/equipment2.jpg' %}" class="card-img-top" alt="Equipments">
-                    <h5 class="card-title">Equipments</h5>
+                    <h5 class="card-title-home">Equipments</h5>
                 </a>
             </div>
         </div>
