@@ -2,26 +2,46 @@
 {% load static %}
 
 {% block main_content %}
+<style>
+    .label-tag {
+        font-size: 1.1rem;
+        font-weight: bold;
+        display: block;
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
+    }
+</style>
 
 <h1 class="text-center mb-4">
-    All Equipments
+    Equipments
 </h1>
+<div class="row">
     <div class="col-md-3">
-  <form method="get">
-    {% for field in form %}
-      <div class="mb-3">
-        {{ field.label_tag }}
-        {{ field }}
-      </div>
-    {% endfor %}
-    <button type="submit" class="btn btn-primary">Filter</button>
-  </form>
+        <form method="get" action="{% url 'equipments_list' %}">
+            <div class="pl-3">
+                {% for field in form %}
+                    <div class="form-group">
+                        {% for radio in field %}
+                            <div class="form-check">
+                                {{ radio.tag }}
+                                <label class="form-check-label" for="{{ radio.id_for_label }}">
+                                    {{ radio.choice_label }}
+                                </label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </form>
 </div>
+
+    <div class="col-md-9">
     <div class="row">
         {% for equipment in equipment_list %}
             <div class="col-md-4 mb-4">
-                <div class="card h-100" style="width: 450px;">
-                    <div class="card-img-container" style="height: 300px; display: flex; justify-content: center; align-items: center; overflow: hidden;">
+                <div class="card h-100">
+                    <div class="card-img-container">
                         {% if equipment.equipment_images.exists %}
                             {% with equipment.equipment_images.first as first_image %}
                                 <img src="{{ first_image.image.url }}" alt="{{ equipment.name }}" class="card-img-top" style="max-width: 100%; object-fit: contain;">
@@ -43,10 +63,11 @@
                 </div>
             </div>
         {% empty %}
-            <p>No equipments found.</p>
+            <p class="label-tag">No equipments found.</p>
         {% endfor %}
     </div>
-
+    </div>
+</div>
     {% if is_paginated %}
       <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
@@ -71,6 +92,5 @@
       </nav>
 
   {% endif %}
-
 {% endblock %}
 

@@ -73,9 +73,9 @@ class BicycleCategoryListView(views.ListView):
         context["form"] = BicycleCategoryFilterForm(category, self.request.GET)
 
         context["category_names"] = {
-            "MountainBicycle": "Mountain",
-            "RoadBicycle": "Road",
-            "ElectricBicycle": "Electric",
+            "MountainBicycle": "Mountain Bicycle",
+            "RoadBicycle": "Road Bicycle",
+            "ElectricBicycle": "Electric Bicycle",
         }
 
         return context

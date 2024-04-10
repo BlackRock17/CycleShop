@@ -22,3 +22,9 @@ def get_item(dictionary, key):
 def multiply(value, arg):
     return value * arg
 
+
+@register.filter
+def camel_case_to_spaces(value):
+    return ''.join(' ' + c if c.isupper() else c for c in value).strip()
+
+

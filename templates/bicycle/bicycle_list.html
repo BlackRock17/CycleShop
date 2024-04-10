@@ -2,6 +2,18 @@
 {% load static %}
 
 {% block main_content %}
+<style>
+    .label-tag {
+        font-size: 1.1rem;
+        font-weight: bold;
+        display: block;
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
+    }
+</style>
+    <h1 class="text-center mb-4">
+        Bicycles
+    </h1>
 <div class="row">
     <div class="col-md-3">
         <form method="get" action="{% url 'bicycle_list' %}">
@@ -22,6 +34,7 @@
             <button type="submit" class="btn btn-primary">Filter</button>
         </form>
     </div>
+
     <div class="col-md-9">
         <div class="row">
             {% for bike in bicycle_list %}
@@ -44,6 +57,8 @@
                     </div>
                 </div>
             </div>
+            {% empty %}
+                <p class="label-tag">No bicycles found.</p>
             {% endfor %}
         </div>
     </div>

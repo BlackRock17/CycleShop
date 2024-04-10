@@ -1,4 +1,5 @@
 {% load static %}
+{% load custom_filters %}
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
@@ -21,7 +22,7 @@
                         <li><a class="dropdown-item" href="{% url 'bicycle_list' %}">All Bicycles</a></li>
                         <li><hr class="dropdown-divider"></li>
                         {% for bicycle_class, name in bicycle_class_names.items %}
-                        <li><a class="dropdown-item" href="{% url 'bicycle_category_list' category=bicycle_class %}">{{ name }}</a></li>
+                        <li><a class="dropdown-item" href="{% url 'bicycle_category_list' category=bicycle_class %}">{{ name|camel_case_to_spaces }}</a></li>
                         {% endfor %}
                     </ul>
                 </li>

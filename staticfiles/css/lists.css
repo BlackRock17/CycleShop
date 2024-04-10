@@ -37,3 +37,11 @@
 .form-check-label {
     font-size: 1.1rem;
 }
+
+form .label-tag {
+    font-size: 1.1rem !important;
+    font-weight: bold !important;
+    display: block !important;
+    margin-top: 1rem !important;
+    margin-bottom: 0.5rem !important;
+}

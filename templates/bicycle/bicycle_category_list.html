@@ -3,7 +3,7 @@
 {% load custom_filters %}
 
 {% block main_content %}
-    <style>
+<style>
     .label-tag {
         font-size: 1.1rem;
         font-weight: bold;
@@ -12,6 +12,8 @@
         margin-bottom: 0.5rem;
     }
 </style>
+    <h1 class="text-center mb-4">{{ category|camel_case_to_spaces }}</h1>
+
 <div class="row">
     <div class="col-md-3">
         <form method="get" action="{% url 'bicycle_category_list' category=view.kwargs.category %}">
@@ -35,13 +37,17 @@
             <button type="submit" class="btn btn-primary">Filter</button>
         </form>
     </div>
+
     <div class="col-md-9">
-{#        <h1 class="text-center mb-4">{{ category_names|get_item:view.kwargs.category }} Bicycles</h1>#}
+
         <div class="row">
+
             {% for bicycle in bicycles %}
+
             <div class="col-md-4 mb-4">
                 <div class="card h-100">
                     <div class="card-img-container">
+
                         {% if bicycle.bicycle_images.exists %}
                             {% with bicycle.bicycle_images.first as first_image %}
                                 <img src="{{ first_image.image.url }}" class="card-img-top" alt="{{ bicycle.name }}">
@@ -58,6 +64,8 @@
                     </div>
                 </div>
             </div>
+                {% empty %}
+                <p class="label-tag">No bicycles found in this category.</p>
             {% endfor %}
         </div>
         {% if is_paginated %}
