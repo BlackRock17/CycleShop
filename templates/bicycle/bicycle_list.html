@@ -11,9 +11,8 @@
         margin-bottom: 0.5rem;
     }
 </style>
-    <h1 class="text-center mb-4">
-        Bicycles
-    </h1>
+    <h1 class="text-center mb-4">Bicycles</h1>
+
 <div class="row">
     <div class="col-md-3">
         <form method="get" action="{% url 'bicycle_list' %}">
@@ -35,32 +34,8 @@
         </form>
     </div>
 
-    <div class="col-md-9">
-        <div class="row">
-            {% for bike in bicycle_list %}
-            <div class="col-md-4 mb-4">
-                <div class="card h-100">
-                    <div class="card-img-container">
-                        {% with bike.bicycle_images.all|first as bike_image %}
-                            {% if bike_image %}
-                                <img src="{{ bike_image.image.url }}" class="card-img-top" alt="{{ bike.name }}">
-                            {% else %}
-                                <img src="{% static 'images/default.jpg' %}" class="card-img-top" alt="Default Bike Image">
-                            {% endif %}
-                        {% endwith %}
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">{{ bike.name }}</h5>
-                        <p class="card-text">{{ bike.description }}</p>
-                        <p class="card-text price">{{ bike.price }} USD</p>
-                        <a href="{% url 'bicycle_detail' pk=bike.pk %}" class="btn btn-primary">More Info</a>
-                    </div>
-                </div>
-            </div>
-            {% empty %}
-                <p class="label-tag">No bicycles found.</p>
-            {% endfor %}
-        </div>
-    </div>
+    {% include 'partials/bicycle_card.html' %}
+
 </div>
+
 {% endblock %}

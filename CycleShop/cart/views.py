@@ -56,7 +56,7 @@ def cart_view(request):
                 item.image = get_product_image(product)
 
         total_price = sum(item.price * item.quantity for item in cart_items)
-        total_price_formatted = f"Total: ${total_price:.2f}"
+        total_price_formatted = f"Total Price: ${total_price:.2f}"
         context = {"cart_items": cart_items, "total_price": total_price_formatted}
         return render(request, "cart/cart.html", context)
     else:

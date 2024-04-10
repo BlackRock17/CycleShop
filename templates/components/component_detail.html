@@ -2,13 +2,6 @@
 {% load static %}
 
 {% block main_content %}
-  <style>
-    .main-image {
-      width: 80%;
-      height: 300px;
-      object-fit: contain;
-    }
-  </style>
   <div class="container">
     <h1 class="my-4">{{ component.name }}</h1>
 
@@ -37,7 +30,7 @@
         </div>
         <div class="row mt-3">
           {% for image in component.components_images.all %}
-            <div class="col-md-3">
+            <div class="col-md-3 thumbnail">
               <img src="{{ image.image.url }}" class="img-fluid" alt="{{ component.name }}" data-bs-target="#component-images" data-bs-slide-to="{{ forloop.counter0 }}">
             </div>
           {% endfor %}
@@ -48,7 +41,7 @@
           <div class="card-body">
             <h4 class="card-title">{{ component.name }}</h4>
             <h5 class="card-subtitle mb-2 text-muted">{{ component.get_type_display }}</h5>
-            <p class="card-text lead">Price: {{ component.price }} USD</p>
+            <p class="card-text lead price">Price: {{ component.price }} USD</p>
 
               <div class="d-flex justify-content-between align-items-center">
                   {% if component.quantity > 0 %}

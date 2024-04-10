@@ -38,39 +38,8 @@
         </form>
     </div>
 
-    <div class="col-md-9">
+    {% include 'partials/bicycle_card.html' %}
 
-        <div class="row">
-
-            {% for bicycle in bicycles %}
-
-            <div class="col-md-4 mb-4">
-                <div class="card h-100">
-                    <div class="card-img-container">
-
-                        {% if bicycle.bicycle_images.exists %}
-                            {% with bicycle.bicycle_images.first as first_image %}
-                                <img src="{{ first_image.image.url }}" class="card-img-top" alt="{{ bicycle.name }}">
-                            {% endwith %}
-                        {% else %}
-                            <img src="{% static 'images/default_bicycle.jpg' %}" class="card-img-top" alt="Default Bicycle Image">
-                        {% endif %}
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">{{ bicycle.name }}</h5>
-                        <p class="card-text">{{ bicycle.description }}</p>
-                        <p class="card-text price">{{ bicycle.price }} USD</p>
-                        <a href="{% url 'bicycle_detail' pk=bicycle.pk %}" class="btn btn-primary">More Info</a>
-                    </div>
-                </div>
-            </div>
-                {% empty %}
-                <p class="label-tag">No bicycles found in this category.</p>
-            {% endfor %}
-        </div>
-        {% if is_paginated %}
-            <!-- Pagination controls -->
-        {% endif %}
-    </div>
 </div>
+
 {% endblock %}

@@ -1,0 +1,32 @@
+{% load static %}
+
+<div class="col-md-9">
+    <div class="row">
+        {% for equipment in equipment_list %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-img-container">
+                        {% if equipment.equipment_images.exists %}
+                            {% with equipment.equipment_images.first as first_image %}
+                                <img src="{{ first_image.image.url }}" alt="{{ equipment.name }}" class="card-img-top" style="max-width: 100%; object-fit: contain;">
+                            {% endwith %}
+                        {% else %}
+                            <img src="{% static 'images/default.jpg' %}" alt="Default Image" class="card-img-top" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+                        {% endif %}
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ equipment.name }}</h5>
+                        <p class="card-text">{{ equipment.description|truncatewords:20 }}</p>
+                        <p class="card-text price">Price: {{ equipment.price }}</p>
+                        {% if equipment.category %}
+                            <p class="card-text">Category: {{ equipment.get_category_display }}</p>
+                        {% endif %}
+                        <a href="{% url 'equipment_detail' pk=equipment.pk %}" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p class="label-tag">No equipments found.</p>
+        {% endfor %}
+    </div>
+</div>

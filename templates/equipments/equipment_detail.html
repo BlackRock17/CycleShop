@@ -30,7 +30,7 @@
         </div>
         <div class="row mt-3">
           {% for image in equipment.equipment_images.all %}
-            <div class="col-md-3">
+            <div class="col-md-3 thumbnail">
               <img src="{{ image.image.url }}" class="img-fluid" alt="{{ equipment.name }}" data-bs-target="#equipment-images" data-bs-slide-to="{{ forloop.counter0 }}">
             </div>
           {% endfor %}
@@ -41,7 +41,7 @@
           <div class="card-body">
             <h4 class="card-title">{{ equipment.name }}</h4>
             <h5 class="card-subtitle mb-2 text-muted">{{ equipment.get_category_display }}</h5>
-            <p class="card-text lead">Price: {{ equipment.price }} USD</p>
+            <p class="card-text lead price">Price: {{ equipment.price }} USD</p>
 
               <div class="d-flex justify-content-between align-items-center">
                   {% if equipment.quantity > 0 %}

@@ -30,7 +30,7 @@
         </div>
       <div class="row mt-3">
           {% for image in bicycle.bicycle_images.all %}
-            <div class="col-md-3">
+            <div class="col-md-3 thumbnail">
               <img src="{{ image.image.url }}" class="img-fluid" alt="{{ bicycle.name }}" data-bs-target="#bicycle-images" data-bs-slide-to="{{ forloop.counter0 }}">
             </div>
           {% endfor %}
@@ -52,7 +52,7 @@
                      N/A
                 {% endif %}
             </h5>
-            <p class="card-text lead">Price: {{ bicycle.price }} USD</p>
+            <p class="card-text lead price">Price: {{ bicycle.price }} USD</p>
 
             <div class="d-flex justify-content-between align-items-center">
                   {% if bicycle.quantity > 0 %}
