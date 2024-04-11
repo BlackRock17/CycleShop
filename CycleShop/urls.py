@@ -1,6 +1,8 @@
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import TemplateView
+from django.conf.urls import handler404
 
 from CycleShop import settings
 
@@ -18,3 +20,9 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += [
+        path('404/', TemplateView.as_view(template_name='404.html'), name='404'),
+    ]
+
+
+handler404 = 'CycleShop.common.views.handler404'

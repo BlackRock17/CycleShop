@@ -20,3 +20,7 @@ def order_history(request):
     return render(request, 'orders/order_history.html', {'orders': orders})
 
 
+def handler404(request, exception):
+    return render(request, '404.html', status=404)
+
+
