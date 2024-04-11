@@ -7,6 +7,7 @@ class AccessoriesListView(views.ListView):
     model = Accessories
     template_name = "accessories/accessories_list.html"
     context_object_name = "accessories"
+    paginate_by = 6
 
     def get_queryset(self):
         queryset = super().get_queryset()

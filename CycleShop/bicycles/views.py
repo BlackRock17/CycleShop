@@ -8,7 +8,7 @@ from CycleShop.bicycles.models import MountainBicycle, RoadBicycle, ElectricBicy
 
 class BicycleListView(views.ListView):
     template_name = "bicycle/bicycle_list.html"
-    paginate_by = 20
+    paginate_by = 6
     context_object_name = "bicycles"
 
     def get_queryset(self):

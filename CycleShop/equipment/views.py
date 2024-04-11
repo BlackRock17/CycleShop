@@ -10,7 +10,7 @@ from CycleShop.equipment.models import Equipment, Goggles, Protection, Helmet, G
 
 class EquipmentsListView(views.ListView):
     template_name = "equipments/equipments_list.html"
-    paginate_by = 20
+    paginate_by = 6
     context_object_name = "equipment_list"
 
     def get_queryset(self):

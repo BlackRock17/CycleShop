@@ -9,6 +9,7 @@ class ComponentsListView(views.ListView):
     model = Components
     template_name = "components/components_list.html"
     context_object_name = "components"
+    paginate_by = 6
 
     def get_queryset(self):
         queryset = super().get_queryset()
