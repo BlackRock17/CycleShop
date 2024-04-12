@@ -16,8 +16,8 @@
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">{{ bicycle.name }}</h5>
-                        <p class="card-text">{{ bicycle.description|truncatechars:20 }}</p>
-                        <p class="card-text price">{{ bicycle.price }} USD</p>
+                        <p class="card-text">{{ bicycle.description|truncatechars:30 }}</p>
+                        <p class="card-text price">{{ bicycle.price }} $</p>
                         <a href="{% url 'bicycle_detail' pk=bicycle.pk %}" class="btn btn-primary">View Details</a>
                     </div>
                 </div>
