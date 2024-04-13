@@ -88,8 +88,8 @@ class Equipment(models.Model):
 
 
 class Goggles(Equipment):
-    MAX_LENS_MATERIAL_LENGTH = 20
-    MAX_FRAME_MATERIAL_LENGTH = 20
+    MAX_LENS_MATERIAL_LENGTH = 40
+    MAX_FRAME_MATERIAL_LENGTH = 40
 
     UV_protection_level = models.PositiveIntegerField(
         null=True,
@@ -129,7 +129,7 @@ class Goggles(Equipment):
 
 
 class Protection(Equipment):
-    MAX_MATERIAL_LENGTH = 20
+    MAX_MATERIAL_LENGTH = 30
     MAX_WEIGHT = 5
     MAX_DECIMAL_PLACES = 3
 
@@ -179,9 +179,9 @@ class Protection(Equipment):
 
 
 class Helmet(Equipment):
-    MAX_CONSTRUCTION_TYPE_LENGTH = 15
-    MAX_RETENTION_SYSTEM_LENGTH = 15
-    MAX_SAFETY_CERTIFICATION_LENGTH = 10
+    MAX_CONSTRUCTION_TYPE_LENGTH = 30
+    MAX_RETENTION_SYSTEM_LENGTH = 30
+    MAX_SAFETY_CERTIFICATION_LENGTH = 30
     MAX_WEIGHT = 5
     MAX_DECIMAL_PLACES = 3
 
@@ -231,11 +231,11 @@ class Helmet(Equipment):
 
 
 class Gloves(Equipment):
-    MAX_MATERIAL_PALM_LENGTH = 10
-    MAX_MATERIAL_BACK_LENGTH = 10
-    MAX_PADDING_TYPE_LENGTH = 20
-    MAX_GRIP_ENHANCING_FEATURES_LENGTH = 20
-    MAX_CLOSURE_TYPE_LENGTH = 10
+    MAX_MATERIAL_PALM_LENGTH = 30
+    MAX_MATERIAL_BACK_LENGTH = 30
+    MAX_PADDING_TYPE_LENGTH = 30
+    MAX_GRIP_ENHANCING_FEATURES_LENGTH = 30
+    MAX_CLOSURE_TYPE_LENGTH = 30
 
     material_palm = models.CharField(
         max_length=MAX_MATERIAL_PALM_LENGTH,

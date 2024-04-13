@@ -51,7 +51,7 @@
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">{{ accessory.name }}</h5>
-                        <p class="card-text">{{ accessory.description }}</p>
+                        <p class="card-text">{{ accessory.description|truncatechars:30 }}</p>
                         <p class="card-text price">{{ accessory.price }} USD</p>
                         <a href="{% url 'accessory_detail' pk=accessory.pk %}" class="btn btn-primary">View Details</a>
                     </div>
